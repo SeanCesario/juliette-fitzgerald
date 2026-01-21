@@ -1,0 +1,44 @@
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.App-header {
+    background-color: $color-white;
+    border-bottom: 1px solid $color-gray-200;
+    padding: $spacing-6 0;
+
+    h1 {
+        text-align: center;
+        color: $color-gray-900;
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-semibold;
+
+        @include mobile {
+            font-size: $font-size-xl;
+        }
+    }
+}
+
+.App-main {
+    flex: 1;
+    padding: $spacing-8 0;
+
+    @include mobile {
+        padding: $spacing-6 0;
+    }
+}
+
+.App-footer {
+    background-color: $color-gray-50;
+    border-top: 1px solid $color-gray-200;
+    padding: $spacing-6 0;
+
+    p {
+        text-align: center;
+        color: $color-gray-600;
+        font-size: $font-size-sm;
+        margin: 0;
+    }
+}
