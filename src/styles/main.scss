@@ -1,9 +1,9 @@
 // Main SCSS entry point
 @import 'variables';
+@import 'mixins';
 @import 'reset';
 @import 'typography';
 @import 'layout';
-@import 'mixins';
 
 // Global styles
 html {

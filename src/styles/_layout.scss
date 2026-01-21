@@ -870,9 +870,9 @@
 }
 
 .section-lg {
-    padding: $spacing-20 0;
+    padding: $spacing-16 0;
 
     @include mobile {
-        padding: $spacing-16 0;
+        padding: $spacing-12 0;
     }
 }
