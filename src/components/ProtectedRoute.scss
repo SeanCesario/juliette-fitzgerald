@@ -1,0 +1,20 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.protected-route {
+    @include flex-center;
+    @include flex-column;
+    min-height: 50vh;
+
+    &__loading {
+        @include flex-center;
+        @include flex-column;
+        text-align: center;
+
+        p {
+            color: $color-gray-600;
+            font-size: $font-size-lg;
+            margin-top: $spacing-4;
+        }
+    }
+}

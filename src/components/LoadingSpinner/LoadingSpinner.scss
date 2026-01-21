@@ -1,0 +1,42 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.loading-spinner {
+    @include flex-center;
+    @include flex-column;
+    gap: $spacing-3;
+
+    &__spinner {
+        @include spinner;
+    }
+
+    &__text {
+        color: $color-gray-600;
+        font-size: $font-size-sm;
+        margin: 0;
+    }
+
+    &--sm {
+        .loading-spinner__spinner {
+            width: 16px;
+            height: 16px;
+            border-width: 2px;
+        }
+    }
+
+    &--md {
+        .loading-spinner__spinner {
+            width: 24px;
+            height: 24px;
+            border-width: 2px;
+        }
+    }
+
+    &--lg {
+        .loading-spinner__spinner {
+            width: 32px;
+            height: 32px;
+            border-width: 3px;
+        }
+    }
+}

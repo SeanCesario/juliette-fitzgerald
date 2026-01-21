@@ -1,0 +1,80 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.image {
+    position: relative;
+    overflow: hidden;
+    background-color: $color-gray-200;
+
+    // Aspect ratios
+    &--aspect-square {
+        @include aspect-ratio(1, 1);
+    }
+
+    &--aspect-portrait {
+        @include aspect-ratio(4, 5);
+    }
+
+    &--aspect-landscape {
+        @include aspect-ratio(16, 9);
+    }
+
+    &--aspect-0-8 {
+        @include aspect-ratio(4, 5);
+    }
+
+    &--aspect-1-33 {
+        @include aspect-ratio(4, 3);
+    }
+
+    &--aspect-1-78 {
+        @include aspect-ratio(16, 9);
+    }
+
+    &__placeholder {
+        @include flex-center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $color-gray-200;
+    }
+
+    &__error {
+        @include flex-center;
+        @include flex-column;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $color-gray-200;
+        color: $color-gray-600;
+        font-size: $font-size-sm;
+        text-align: center;
+        padding: $spacing-4;
+    }
+
+    &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity $transition-normal;
+
+        &--loaded {
+            opacity: 1;
+        }
+    }
+
+    &--fit-cover &__img {
+        object-fit: cover;
+    }
+
+    &--fit-contain &__img {
+        object-fit: contain;
+    }
+}

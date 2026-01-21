@@ -1,0 +1,102 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.home {
+    padding: $spacing-8 0;
+
+    @include mobile {
+        padding: $spacing-6 0;
+    }
+
+    &__header {
+        text-align: center;
+        margin-bottom: $spacing-8;
+
+        @include mobile {
+            margin-bottom: $spacing-6;
+        }
+
+        h1 {
+            font-size: $font-size-3xl;
+            font-weight: $font-weight-light;
+            color: $color-gray-900;
+            margin: 0 0 $spacing-2 0;
+
+            @include mobile {
+                font-size: $font-size-2xl;
+            }
+        }
+
+        p {
+            font-size: $font-size-lg;
+            color: $color-gray-600;
+            margin: 0;
+            font-weight: $font-weight-light;
+
+            @include mobile {
+                font-size: $font-size-base;
+            }
+        }
+    }
+
+    &__loading {
+        @include flex-center;
+        @include flex-column;
+        padding: $spacing-16 0;
+        text-align: center;
+
+        p {
+            color: $color-gray-600;
+            font-size: $font-size-lg;
+            margin-top: $spacing-4;
+        }
+    }
+
+    &__error {
+        @include flex-center;
+        @include flex-column;
+        padding: $spacing-16 0;
+        text-align: center;
+
+        h2 {
+            font-size: $font-size-2xl;
+            color: $color-gray-900;
+            margin: 0 0 $spacing-4 0;
+        }
+
+        p {
+            color: $color-gray-600;
+            font-size: $font-size-lg;
+            margin: 0 0 $spacing-6 0;
+        }
+    }
+
+    &__empty {
+        @include flex-center;
+        @include flex-column;
+        padding: $spacing-16 0;
+        text-align: center;
+
+        h2 {
+            font-size: $font-size-2xl;
+            color: $color-gray-900;
+            margin: 0 0 $spacing-4 0;
+            font-weight: $font-weight-light;
+
+            @include mobile {
+                font-size: $font-size-xl;
+            }
+        }
+
+        p {
+            color: $color-gray-600;
+            font-size: $font-size-lg;
+            margin: 0;
+            font-weight: $font-weight-light;
+
+            @include mobile {
+                font-size: $font-size-base;
+            }
+        }
+    }
+}

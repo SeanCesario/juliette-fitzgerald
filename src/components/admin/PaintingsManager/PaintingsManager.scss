@@ -1,0 +1,139 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.paintings-manager {
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-8;
+
+        @include mobile {
+            flex-direction: column;
+            gap: $spacing-4;
+            align-items: stretch;
+        }
+
+        h2 {
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-semibold;
+            color: $color-gray-900;
+            margin: 0;
+        }
+    }
+
+    &__loading {
+        @include flex-center;
+        @include flex-column;
+        padding: $spacing-16 0;
+        text-align: center;
+
+        p {
+            color: $color-gray-600;
+            font-size: $font-size-lg;
+            margin-top: $spacing-4;
+        }
+    }
+
+    &__error {
+        text-align: center;
+        padding: $spacing-8;
+        background-color: $color-gray-50;
+        border-radius: $border-radius-lg;
+        border: 1px solid $color-gray-200;
+
+        h3 {
+            color: $color-gray-900;
+            margin: 0 0 $spacing-2 0;
+        }
+
+        p {
+            color: $color-gray-600;
+            margin: 0 0 $spacing-4 0;
+        }
+    }
+
+    &__empty {
+        text-align: center;
+        padding: $spacing-16 0;
+
+        h3 {
+            font-size: $font-size-xl;
+            color: $color-gray-900;
+            margin: 0 0 $spacing-4 0;
+            font-weight: $font-weight-light;
+        }
+
+        p {
+            color: $color-gray-600;
+            margin: 0 0 $spacing-6 0;
+        }
+    }
+
+    &__grid {
+        margin-bottom: $spacing-8;
+    }
+
+    &__card {
+        background-color: $color-white;
+        border: 1px solid $color-gray-200;
+        border-radius: $border-radius-lg;
+        overflow: hidden;
+        transition: all $transition-normal;
+
+        &:hover {
+            box-shadow: $shadow-md;
+            transform: translateY(-2px);
+        }
+    }
+
+    &__image {
+        position: relative;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+    }
+
+    &__thumbnail {
+        transition: transform $transition-normal;
+
+        .paintings-manager__card:hover & {
+            transform: scale(1.05);
+        }
+    }
+
+    &__info {
+        padding: $spacing-4;
+    }
+
+    &__title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $color-gray-900;
+        margin: 0 0 $spacing-1 0;
+        line-height: 1.2;
+        @include text-truncate;
+    }
+
+    &__year {
+        font-size: $font-size-sm;
+        color: $color-gray-600;
+        margin: 0;
+    }
+
+    &__actions {
+        padding: $spacing-4;
+        display: flex;
+        gap: $spacing-2;
+        border-top: 1px solid $color-gray-100;
+
+        .paintings-manager__delete {
+            background-color: $color-gray-100;
+            color: $color-gray-700;
+
+            &:hover {
+                background-color: $color-gray-200;
+                color: $color-gray-900;
+            }
+        }
+    }
+}

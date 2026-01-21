@@ -1,0 +1,108 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.admin {
+    padding: $spacing-6 0;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-8;
+        padding-bottom: $spacing-6;
+        border-bottom: 1px solid $color-gray-200;
+
+        @include mobile {
+            flex-direction: column;
+            gap: $spacing-4;
+            align-items: stretch;
+        }
+
+        &-left {
+            h1 {
+                font-size: $font-size-3xl;
+                font-weight: $font-weight-semibold;
+                color: $color-gray-900;
+                margin: 0 0 $spacing-1 0;
+
+                @include mobile {
+                    font-size: $font-size-2xl;
+                }
+            }
+
+            p {
+                color: $color-gray-600;
+                margin: 0;
+                font-size: $font-size-sm;
+            }
+        }
+    }
+
+    &__tabs {
+        display: flex;
+        gap: $spacing-1;
+        border-bottom: 2px solid $color-gray-200;
+        margin-bottom: $spacing-8;
+
+        @include mobile {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
+    &__tab {
+        background: none;
+        border: none;
+        padding: $spacing-4 $spacing-6;
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        color: $color-gray-600;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: all $transition-fast;
+        white-space: nowrap;
+        position: relative;
+        top: 2px;
+
+        &:hover {
+            color: $color-gray-900;
+            background-color: $color-gray-50;
+        }
+
+        &--active {
+            color: $color-accent;
+            border-bottom-color: $color-accent;
+            background-color: transparent;
+        }
+    }
+
+    &__content {
+        min-height: 500px;
+    }
+
+    &__placeholder {
+        @include flex-center;
+        @include flex-column;
+        text-align: center;
+        padding: $spacing-16 0;
+
+        h3 {
+            font-size: $font-size-xl;
+            color: $color-gray-900;
+            margin: 0 0 $spacing-4 0;
+            font-weight: $font-weight-light;
+        }
+
+        p {
+            color: $color-gray-600;
+            margin: 0 0 $spacing-6 0;
+            line-height: 1.6;
+        }
+    }
+}

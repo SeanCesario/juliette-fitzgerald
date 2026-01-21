@@ -1,0 +1,88 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.grid {
+    display: grid;
+
+    // Column variants
+    &--1 {
+        grid-template-columns: 1fr;
+    }
+
+    &--2 {
+        grid-template-columns: repeat(2, 1fr);
+
+        @include mobile {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &--3 {
+        grid-template-columns: repeat(3, 1fr);
+
+        @include tablet {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include mobile {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &--4 {
+        grid-template-columns: repeat(4, 1fr);
+
+        @include tablet {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include mobile {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &--5 {
+        grid-template-columns: repeat(5, 1fr);
+
+        @include tablet {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include mobile {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    &--6 {
+        grid-template-columns: repeat(6, 1fr);
+
+        @include tablet {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include mobile {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    // Gap variants
+    &--gap-sm {
+        gap: $spacing-3;
+    }
+
+    &--gap-md {
+        gap: $spacing-4;
+
+        @include mobile {
+            gap: $spacing-3;
+        }
+    }
+
+    &--gap-lg {
+        gap: $spacing-6;
+
+        @include mobile {
+            gap: $spacing-4;
+        }
+    }
+}

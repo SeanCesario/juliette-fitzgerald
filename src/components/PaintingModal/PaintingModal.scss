@@ -1,0 +1,128 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.painting-modal {
+    &__navigation {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    &__nav {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        pointer-events: all;
+
+        &--prev {
+            left: $spacing-4;
+        }
+
+        &--next {
+            right: $spacing-4;
+        }
+
+        @include mobile {
+            width: 40px;
+            height: 40px;
+
+            &--prev {
+                left: $spacing-2;
+            }
+
+            &--next {
+                right: $spacing-2;
+            }
+        }
+
+        span {
+            font-size: $font-size-xl;
+            line-height: 1;
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        max-height: 80vh;
+
+        @include tablet {
+            flex-direction: row;
+        }
+    }
+
+    &__image-section {
+        position: relative;
+        background-color: $color-gray-100;
+        min-height: 300px;
+        max-height: 60vh;
+
+        @include tablet {
+            flex: 1;
+            max-height: none;
+            min-height: 400px;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+    }
+
+    &__info {
+        padding: $spacing-6;
+        background-color: $color-white;
+        flex: 0 0 auto;
+
+        @include tablet {
+            flex: 0 0 300px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    }
+
+    &__title {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-semibold;
+        color: $color-gray-900;
+        margin: 0 0 $spacing-2 0;
+        line-height: 1.2;
+
+        @include mobile {
+            font-size: $font-size-xl;
+        }
+    }
+
+    &__year {
+        font-size: $font-size-lg;
+        color: $color-gray-600;
+        margin: 0 0 $spacing-4 0;
+        font-weight: $font-weight-medium;
+    }
+
+    &__description {
+        margin-bottom: $spacing-4;
+
+        p {
+            color: $color-gray-700;
+            line-height: 1.6;
+            margin: 0;
+        }
+    }
+
+    &__counter {
+        font-size: $font-size-sm;
+        color: $color-gray-500;
+        text-align: center;
+        padding: $spacing-2;
+        background-color: $color-gray-100;
+        border-radius: $border-radius-md;
+        margin-top: $spacing-4;
+    }
+}

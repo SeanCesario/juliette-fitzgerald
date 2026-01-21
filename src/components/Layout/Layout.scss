@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: $color-white;
+}
+
+.main-content {
+    flex: 1;
+    padding: $spacing-8 0;
+
+    @include mobile {
+        padding: $spacing-6 0;
+    }
+
+    .container {
+        @include container;
+    }
+}

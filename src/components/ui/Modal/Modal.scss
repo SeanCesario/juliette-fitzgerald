@@ -1,0 +1,112 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    @include flex-center;
+    padding: $spacing-4;
+    animation: fadeIn $transition-normal;
+
+    &__backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(4px);
+    }
+
+    &__close {
+        position: absolute;
+        top: $spacing-4;
+        right: $spacing-4;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        @include flex-center;
+        font-size: $font-size-xl;
+        color: $color-gray-700;
+        z-index: 10;
+        transition: all $transition-fast;
+
+        &:hover {
+            background-color: $color-white;
+            color: $color-gray-900;
+            transform: scale(1.1);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $color-accent;
+            outline-offset: 2px;
+        }
+    }
+
+    &__content {
+        padding: $spacing-6;
+    }
+
+    // Size variants
+    &--sm {
+        max-width: 400px;
+        width: 100%;
+    }
+
+    &--md {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    &--lg {
+        max-width: 800px;
+        width: 100%;
+    }
+
+    &--xl {
+        max-width: 1000px;
+        width: 100%;
+    }
+}
+
+.modal {
+    >div:not(.modal__backdrop) {
+        position: relative;
+        background-color: $color-white;
+        border-radius: $border-radius-xl;
+        max-height: 90vh;
+        overflow: hidden;
+        box-shadow: $shadow-xl;
+        animation: slideUp $transition-normal;
+        z-index: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

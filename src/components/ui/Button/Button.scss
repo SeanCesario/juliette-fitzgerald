@@ -1,0 +1,102 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    font-family: inherit;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    border-radius: $border-radius-md;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    transition: all $transition-fast;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-base;
+
+    &:focus-visible {
+        outline: 2px solid $color-accent;
+        outline-offset: 2px;
+    }
+
+    &--primary {
+        background-color: $color-accent;
+        color: $color-white;
+
+        &:hover {
+            background-color: darken($color-accent, 10%);
+        }
+    }
+
+    &--secondary {
+        background-color: transparent;
+        color: $color-gray-700;
+        border: 1px solid $color-gray-300;
+
+        &:hover {
+            background-color: $color-gray-100;
+            border-color: $color-gray-400;
+        }
+    }
+
+    &--ghost {
+        background-color: transparent;
+        color: $color-gray-700;
+        border: none;
+        padding: $spacing-2;
+
+        &:hover {
+            background-color: $color-gray-100;
+            color: $color-gray-900;
+        }
+    }
+
+    &--sm {
+        padding: $spacing-1 $spacing-3;
+        font-size: $font-size-sm;
+    }
+
+    &--md {
+        padding: $spacing-2 $spacing-4;
+        font-size: $font-size-base;
+    }
+
+    &--lg {
+        padding: $spacing-3 $spacing-6;
+        font-size: $font-size-lg;
+    }
+
+    &--loading {
+        color: transparent;
+
+        .button__text,
+        .button__icon {
+            opacity: 0;
+        }
+    }
+
+    &--disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    &__spinner {
+        @include spinner;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+    }
+
+    &__text {
+        font-weight: $font-weight-medium;
+    }
+}

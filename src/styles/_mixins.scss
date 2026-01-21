@@ -29,6 +29,25 @@
     }
 }
 
+// Responsive breakpoints
+@mixin mobile {
+    @media (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: 768px) and (max-width: 1023px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
 // Container mixin
 @mixin container {
     width: 100%;
@@ -42,6 +61,10 @@
 
     @include desktop {
         padding: 0 $spacing-8;
+    }
+
+    @include mobile {
+        padding: 0 $spacing-3;
     }
 }
 
@@ -177,5 +200,22 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+}
+
+// Loading spinner
+@mixin spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-gray-300;
+    border-radius: 50%;
+    border-top-color: $color-accent;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }

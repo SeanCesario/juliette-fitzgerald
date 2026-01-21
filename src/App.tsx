@@ -1,28 +1,33 @@
 import { Routes, Route } from 'react-router-dom'
-import { APP_NAME } from './utils/constants'
+import { AuthProvider } from './context/AuthContext'
+import Layout from './components/Layout/Layout'
+import ProtectedRoute from './components/ProtectedRoute'
+import ErrorBoundary from './components/ErrorBoundary'
+import Home from './pages/Home/Home'
+import AboutPage from './pages/About/About'
+import Login from './pages/Login'
+import Admin from './pages/Admin/Admin'
 import './App.scss'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>{APP_NAME}</h1>
-      </header>
-
-      <main className="App-main">
+    <ErrorBoundary>
+      <AuthProvider>
         <Routes>
-          <Route path="/" element={<div>Home - Gallery</div>} />
-          <Route path="/about" element={<div>About</div>} />
-          <Route path="/contact" element={<div>Contact</div>} />
-          <Route path="/paintings/:id" element={<div>Painting Detail</div>} />
-          <Route path="*" element={<div>Page Not Found</div>} />
+          <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/about" element={<Layout><AboutPage /></Layout>} />
+          <Route path="/admin/login" element={<Login />} />
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute>
+                <Layout><Admin /></Layout>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
-      </main>
-
-      <footer className="App-footer">
-        <p>&copy; 2024 Juliette Fitzgerald. All rights reserved.</p>
-      </footer>
-    </div>
+      </AuthProvider>
+    </ErrorBoundary>
   )
 }
 

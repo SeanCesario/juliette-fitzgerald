@@ -1,0 +1,176 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.about-manager {
+    &__header {
+        margin-bottom: $spacing-8;
+
+        h2 {
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-semibold;
+            color: $color-gray-900;
+            margin: 0 0 $spacing-2 0;
+        }
+
+        p {
+            color: $color-gray-600;
+            margin: 0;
+        }
+    }
+
+    &__loading {
+        @include flex-center;
+        @include flex-column;
+        padding: $spacing-16 0;
+        text-align: center;
+
+        .spinner {
+            @include spinner;
+            margin-bottom: $spacing-4;
+        }
+
+        p {
+            color: $color-gray-600;
+            font-size: $font-size-lg;
+        }
+    }
+
+    &__error {
+        text-align: center;
+        padding: $spacing-8;
+        background-color: $color-gray-50;
+        border-radius: $border-radius-lg;
+        border: 1px solid $color-gray-200;
+
+        h3 {
+            color: $color-gray-900;
+            margin: 0 0 $spacing-2 0;
+        }
+
+        p {
+            color: $color-gray-600;
+            margin: 0 0 $spacing-4 0;
+        }
+    }
+
+    &__form {
+        max-width: 800px;
+    }
+
+    &__fields {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-6;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-2;
+
+        label {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-medium;
+            color: $color-gray-700;
+        }
+
+        textarea {
+            padding: $spacing-4;
+            border: 1px solid $color-gray-300;
+            border-radius: $border-radius-md;
+            font-size: $font-size-base;
+            font-family: inherit;
+            line-height: 1.6;
+            resize: vertical;
+            transition: all $transition-fast;
+
+            &:focus {
+                outline: none;
+                border-color: $color-accent;
+                box-shadow: 0 0 0 3px rgba($color-accent, 0.1);
+            }
+
+            &:disabled {
+                background-color: $color-gray-100;
+                cursor: not-allowed;
+            }
+
+            &::placeholder {
+                color: $color-gray-400;
+            }
+        }
+    }
+
+    &__dropzone {
+        border: 2px dashed $color-gray-300;
+        border-radius: $border-radius-lg;
+        padding: $spacing-6;
+        text-align: center;
+        cursor: pointer;
+        transition: all $transition-fast;
+
+        &:hover,
+        &--active {
+            border-color: $color-accent;
+            background-color: $color-gray-50;
+        }
+    }
+
+    &__dropzone-content {
+        .about-manager__dropzone-icon {
+            font-size: $font-size-3xl;
+            margin-bottom: $spacing-2;
+        }
+
+        p {
+            margin: 0 0 $spacing-1 0;
+            color: $color-gray-600;
+        }
+
+        .about-manager__dropzone-hint {
+            font-size: $font-size-sm;
+            color: $color-gray-500;
+        }
+    }
+
+    &__preview {
+        position: relative;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    &__remove-image {
+        position: absolute;
+        top: $spacing-2;
+        right: $spacing-2;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: $color-white;
+        border: none;
+        border-radius: $border-radius-md;
+        padding: $spacing-1 $spacing-2;
+        font-size: $font-size-xs;
+        cursor: pointer;
+        transition: all $transition-fast;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    }
+
+    &__error {
+        padding: $spacing-3;
+        background-color: $color-gray-50;
+        border: 1px solid $color-gray-300;
+        border-radius: $border-radius-md;
+        color: $color-gray-700;
+        font-size: $font-size-sm;
+        text-align: center;
+        margin: $spacing-4 0;
+    }
+
+    &__actions {
+        margin-top: $spacing-6;
+        padding-top: $spacing-6;
+        border-top: 1px solid $color-gray-200;
+    }
+}
