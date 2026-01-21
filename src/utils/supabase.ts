@@ -15,12 +15,6 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     },
 })
 
-// Helper function to check if user is authenticated
-export const isAuthenticated = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    return !!user
-}
-
 // Helper function to get current user
 export const getCurrentUser = async () => {
     const { data: { user } } = await supabase.auth.getUser()
@@ -34,6 +28,20 @@ export const signOut = async () => {
         console.error('Error signing out:', error.message)
         throw error
     }
+}
+
+// Helper function to get user display name
+export const getUserDisplayName = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user?.user_metadata?.display_name) {
+        return user.user_metadata.display_name
+    }
+    return user?.email || 'Guest'
+}
+
+// Helper function to get website name
+export const getWebsiteName = () => {
+    return 'Juliette Fitzgerald'
 }
 
 // Table references for type safety

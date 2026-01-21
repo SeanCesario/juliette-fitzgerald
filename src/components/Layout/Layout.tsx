@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
+import { getWebsiteName } from '../../utils/supabase'
 import './Layout.scss'
 
 interface LayoutProps {
@@ -8,13 +9,15 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+    const websiteName = getWebsiteName()
+
     return (
         <div className="layout">
-            <Header />
+            <Header artistName={websiteName} />
             <main className="main-content">
                 {children}
             </main>
-            <Footer />
+            <Footer websiteName={websiteName} />
         </div>
     )
 }

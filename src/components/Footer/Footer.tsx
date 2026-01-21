@@ -3,7 +3,11 @@ import { getSocialLinks } from '../../utils/database'
 import type { SocialLink } from '../../types/database'
 import './Footer.scss'
 
-const Footer: React.FC = () => {
+interface FooterProps {
+    websiteName?: string
+}
+
+const Footer: React.FC<FooterProps> = ({ websiteName = 'Juliette Fitzgerald' }) => {
     const [socialLinks, setSocialLinks] = useState<SocialLink[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -91,7 +95,7 @@ const Footer: React.FC = () => {
                         ))}
                 </div>
                 <div className="copyright">
-                    <p>&copy; 2024 Juliette Fitzgerald. All rights reserved.</p>
+                    <p>&copy; 2024 {websiteName}. All rights reserved.</p>
                 </div>
             </div>
         </footer>
