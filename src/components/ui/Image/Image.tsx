@@ -15,7 +15,7 @@ export interface ImageProps {
 const Image: React.FC<ImageProps> = ({
     src,
     alt,
-    aspectRatio = 'portrait',
+    aspectRatio,
     customAspectRatio,
     className = '',
     lazy = true,
@@ -36,7 +36,10 @@ const Image: React.FC<ImageProps> = ({
         if (aspectRatio === 'custom' && customAspectRatio) {
             return `image--aspect-${customAspectRatio.toString().replace('.', '-')}`
         }
-        return `image--aspect-${aspectRatio}`
+        if (aspectRatio) {
+            return `image--aspect-${aspectRatio}`
+        }
+        return ''
     }
 
     const baseClasses = 'image'

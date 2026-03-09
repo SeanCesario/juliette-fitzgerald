@@ -1,128 +1,113 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@use '../../styles' as *;
 
 .painting-modal {
-    &__navigation {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        transform: translateY(-50%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(16, 15, 9, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn $transition-normal;
+
+    &__info {
+        position: fixed;
+        top: $spacing-6;
+        left: $spacing-6;
+        color: $color-white;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
         z-index: 10;
-        pointer-events: none;
     }
 
-    &__nav {
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 50%;
-        pointer-events: all;
-
-        &--prev {
-            left: $spacing-4;
-        }
-
-        &--next {
-            right: $spacing-4;
-        }
-
-        @include mobile {
-            width: 40px;
-            height: 40px;
-
-            &--prev {
-                left: $spacing-2;
-            }
-
-            &--next {
-                right: $spacing-2;
-            }
-        }
-
-        span {
-            font-size: $font-size-xl;
-            line-height: 1;
-        }
-    }
-
-    &__container {
+    &__close {
+        position: fixed;
+        top: $spacing-6;
+        right: $spacing-6;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: $color-white;
+        cursor: pointer;
+        z-index: 10;
+        width: 44px;
+        height: 44px;
         display: flex;
-        flex-direction: column;
-        max-height: 80vh;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color $transition-fast;
 
-        @include tablet {
-            flex-direction: row;
-        }
-    }
-
-    &__image-section {
-        position: relative;
-        background-color: $color-gray-100;
-        min-height: 300px;
-        max-height: 60vh;
-
-        @include tablet {
-            flex: 1;
-            max-height: none;
-            min-height: 400px;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
     }
 
     &__image {
-        width: 100%;
-        height: 100%;
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: $border-radius-lg;
+        box-shadow: $shadow-xl;
     }
 
-    &__info {
-        padding: $spacing-6;
-        background-color: $color-white;
-        flex: 0 0 auto;
+    &__nav {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        font-size: 2rem;
+        color: $color-white;
+        cursor: pointer;
+        z-index: 10;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all $transition-fast;
 
-        @include tablet {
-            flex: 0 0 300px;
-            max-height: 80vh;
-            overflow-y: auto;
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
         }
-    }
 
-    &__title {
-        font-size: $font-size-2xl;
-        font-weight: $font-weight-semibold;
-        color: $color-gray-900;
-        margin: 0 0 $spacing-2 0;
-        line-height: 1.2;
+        &--prev {
+            left: $spacing-6;
+        }
+
+        &--next {
+            right: $spacing-6;
+        }
 
         @include mobile {
-            font-size: $font-size-xl;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+
+            &--prev {
+                left: $spacing-4;
+            }
+
+            &--next {
+                right: $spacing-4;
+            }
         }
     }
+}
 
-    &__year {
-        font-size: $font-size-lg;
-        color: $color-gray-600;
-        margin: 0 0 $spacing-4 0;
-        font-weight: $font-weight-medium;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
 
-    &__description {
-        margin-bottom: $spacing-4;
-
-        p {
-            color: $color-gray-700;
-            line-height: 1.6;
-            margin: 0;
-        }
-    }
-
-    &__counter {
-        font-size: $font-size-sm;
-        color: $color-gray-500;
-        text-align: center;
-        padding: $spacing-2;
-        background-color: $color-gray-100;
-        border-radius: $border-radius-md;
-        margin-top: $spacing-4;
+    to {
+        opacity: 1;
     }
 }

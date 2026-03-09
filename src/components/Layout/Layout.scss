@@ -1,5 +1,4 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@use '../../styles' as *;
 
 .layout {
     display: flex;
@@ -10,13 +9,23 @@
 
 .main-content {
     flex: 1;
-    padding: $spacing-8 0;
-
-    @include mobile {
-        padding: $spacing-6 0;
-    }
+    width: 100%;
 
     .container {
-        @include container;
+        width: 100%;
+        max-width: none;
+        padding: 0 $spacing-4;
+
+        @include tablet {
+            padding: 0 $spacing-6;
+        }
+
+        @include desktop {
+            padding: 0 $spacing-8;
+        }
+
+        @include mobile {
+            padding: 0 $spacing-3;
+        }
     }
 }

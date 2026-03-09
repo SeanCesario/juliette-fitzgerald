@@ -1,5 +1,4 @@
-@import '../styles/variables';
-@import '../styles/mixins';
+@use '../styles' as *;
 
 .login {
     @include flex-center;

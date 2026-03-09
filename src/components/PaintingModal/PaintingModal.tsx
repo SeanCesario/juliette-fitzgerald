@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Image, Button } from '../ui'
 import type { Painting } from '../../types/database'
 import './PaintingModal.scss'
 
@@ -21,9 +20,21 @@ const PaintingModal: React.FC<PaintingModalProps> = ({
     useEffect(() => {
         if (painting && allPaintings.length > 0) {
             const index = allPaintings.findIndex(p => p.id === painting.id)
-            setCurrentIndex(index)
+            setCurrentIndex(index >= 0 ? index : 0)
         }
     }, [painting, allPaintings])
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'unset'
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset'
+        }
+    }, [isOpen])
 
     const handlePrevious = () => {
         if (allPaintings.length === 0) return
@@ -44,60 +55,59 @@ const PaintingModal: React.FC<PaintingModalProps> = ({
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} size="xl">
-            <div className="painting-modal">
-                {allPaintings.length > 1 && (
-                    <div className="painting-modal__navigation">
-                        <Button
-                            variant="ghost"
-                            onClick={handlePrevious}
-                            className="painting-modal__nav painting-modal__nav--prev"
-                            aria-label="Previous painting"
-                        >
-                            <span>‹</span>
-                        </Button>
-
-                        <Button
-                            variant="ghost"
-                            onClick={handleNext}
-                            className="painting-modal__nav painting-modal__nav--next"
-                            aria-label="Next painting"
-                        >
-                            <span>›</span>
-                        </Button>
-                    </div>
-                )}
-
-                <div className="painting-modal__container">
-                    <div className="painting-modal__image-section">
-                        <Image
-                            src={currentPainting.image_url}
-                            alt={currentPainting.title}
-                            aspectRatio="custom"
-                            customAspectRatio={1.33}
-                            className="painting-modal__image"
-                        />
-                    </div>
-
-                    <div className="painting-modal__info">
-                        <h2 className="painting-modal__title">{currentPainting.title}</h2>
-                        <p className="painting-modal__year">{currentPainting.year}</p>
-
-                        {currentPainting.description && (
-                            <div className="painting-modal__description">
-                                <p>{currentPainting.description}</p>
-                            </div>
-                        )}
-
-                        {allPaintings.length > 1 && (
-                            <div className="painting-modal__counter">
-                                {currentIndex + 1} / {allPaintings.length}
-                            </div>
-                        )}
-                    </div>
-                </div>
+        <div className="painting-modal" onClick={onClose}>
+            {/* Name and year in top left */}
+            <div className="painting-modal__info">
+                {currentPainting.title} ({currentPainting.year})
             </div>
-        </Modal>
+
+            {/* Close button in top right */}
+            <button
+                className="painting-modal__close"
+                onClick={(e) => {
+                    e.stopPropagation()
+                    onClose()
+                }}
+                aria-label="Close modal"
+            >
+                ×
+            </button>
+
+            {/* Navigation arrows fixed to sides */}
+            {allPaintings.length > 1 && (
+                <>
+                    <button
+                        className="painting-modal__nav painting-modal__nav--prev"
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            handlePrevious()
+                        }}
+                        aria-label="Previous painting"
+                    >
+                        ←
+                    </button>
+
+                    <button
+                        className="painting-modal__nav painting-modal__nav--next"
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            handleNext()
+                        }}
+                        aria-label="Next painting"
+                    >
+                        →
+                    </button>
+                </>
+            )}
+
+            {/* Full image */}
+            <img
+                src={currentPainting.image_url}
+                alt={currentPainting.title}
+                className="painting-modal__image"
+                onClick={(e) => e.stopPropagation()}
+            />
+        </div>
     )
 }
 

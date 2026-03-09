@@ -1,4 +1,7 @@
 // Responsive design mixins
+@use 'sass:math';
+@use 'variables' as *;
+
 @mixin mobile {
     @media (max-width: #{$breakpoint-mobile}) {
         @content;
@@ -190,7 +193,7 @@
     &::before {
         content: '';
         display: block;
-        padding-top: percentage($height / $width);
+        padding-top: math.percentage(math.div($height, $width));
     }
 
     img {

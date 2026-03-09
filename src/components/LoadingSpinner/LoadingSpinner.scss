@@ -1,5 +1,4 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@use '../../styles' as *;
 
 .loading-spinner {
     @include flex-center;

@@ -1,4 +1,6 @@
 // Typography styles
+@use 'variables' as *;
+@use 'mixins' as *;
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap');
 
 // Base typography

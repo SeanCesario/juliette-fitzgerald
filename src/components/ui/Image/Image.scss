@@ -1,10 +1,25 @@
-@import '../../../styles/variables';
-@import '../../../styles/mixins';
+@use '../../../styles' as *;
 
 .image {
     position: relative;
     overflow: hidden;
     background-color: $color-gray-200;
+
+    // When no aspect ratio is specified, let image have natural height
+    &:not([class*="image--aspect-"]) {
+        .image__img {
+            position: relative !important;
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image__placeholder,
+        .image__error {
+            position: relative;
+            min-height: 200px;
+        }
+    }
 
     // Aspect ratios
     &--aspect-square {

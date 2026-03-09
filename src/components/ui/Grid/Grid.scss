@@ -1,5 +1,4 @@
-@import '../../../styles/variables';
-@import '../../../styles/mixins';
+@use '../../../styles' as *;
 
 .grid {
     display: grid;
@@ -18,14 +17,15 @@
     }
 
     &--3 {
-        grid-template-columns: repeat(3, 1fr);
-
-        @include tablet {
-            grid-template-columns: repeat(2, 1fr);
-        }
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: $spacing-4;
 
         @include mobile {
-            grid-template-columns: 1fr;
+            flex-direction: column;
+            gap: $spacing-3;
         }
     }
 

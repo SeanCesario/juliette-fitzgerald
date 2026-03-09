@@ -1,0 +1,4 @@
+// Index file that forwards all variables and mixins
+// Use: @use '../styles' as *; in your components
+@forward 'variables';
+@forward 'mixins';

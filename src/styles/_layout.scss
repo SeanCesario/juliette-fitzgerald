@@ -1,4 +1,6 @@
 // Layout utilities and grid system
+@use 'variables' as *;
+@use 'mixins' as *;
 
 // Container
 .container {

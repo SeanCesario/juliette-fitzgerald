@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ artistName = 'Juliette Fitzgerald' }) =
                             to="/"
                             className={`nav-link ${isActive('/') ? 'active' : ''}`}
                         >
-                            Home
+                            Gallery
                         </Link>
                         <Link
                             to="/about"
@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ artistName = 'Juliette Fitzgerald' }) =
                         className={`nav-link ${isActive('/') ? 'active' : ''}`}
                         onClick={() => setIsMenuOpen(false)}
                     >
-                        Home
+                        Gallery
                     </Link>
                     <Link
                         to="/about"

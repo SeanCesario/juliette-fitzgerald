@@ -1,5 +1,4 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@use '../../styles' as *;
 
 .about {
     padding: $spacing-8 0;

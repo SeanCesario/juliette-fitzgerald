@@ -1,5 +1,4 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@use '../../styles' as *;
 
 .header {
     background-color: $color-white;
@@ -8,18 +7,29 @@
     top: 0;
     z-index: 100;
     transition: box-shadow $transition-normal;
+    overflow: visible;
 
     &:hover {
         box-shadow: $shadow-md;
     }
 
     .container {
-        @include container;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: $spacing-4 0;
-        min-height: 80px;
+        width: 100%;
+        max-width: none;
+        padding: $spacing-4;
+        min-height: 90px;
+
+        @include tablet {
+            padding: $spacing-4 $spacing-6;
+        }
+
+        @include desktop {
+            padding: $spacing-4 $spacing-8;
+        }
+
+        @include mobile {
+            padding: $spacing-3;
+        }
     }
 
     .header-content {
@@ -55,12 +65,14 @@
     .desktop-nav {
         display: flex;
         gap: $spacing-6;
+        align-items: center;
 
         @include mobile {
             display: none;
         }
 
         .nav-link {
+            display: inline-block;
             color: $color-gray-700;
             text-decoration: none;
             font-weight: $font-weight-medium;
@@ -81,7 +93,7 @@
                 &::after {
                     content: '';
                     position: absolute;
-                    bottom: -2px;
+                    bottom: -1px;
                     left: 50%;
                     transform: translateX(-50%);
                     width: 20px;
@@ -158,40 +170,41 @@
 
     // Mobile Navigation
     .mobile-nav {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        right: 0;
-        background-color: $color-white;
-        border-bottom: 1px solid $color-gray-200;
-        box-shadow: $shadow-lg;
-        transform: translateY(-100%);
-        transition: transform $transition-normal;
-        z-index: 99;
+        display: none;
 
-        &.open {
-            transform: translateY(0);
+        @include mobile {
+            display: block;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            right: 0;
+            background-color: $color-white;
+            border-bottom: 1px solid $color-gray-200;
+            box-shadow: $shadow-lg;
+            transform: translateY(-100%);
+            transition: transform $transition-normal;
+            z-index: 99;
+
+            &.open {
+                transform: translateY(0);
+            }
         }
 
         .nav-link {
-            display: block;
-            width: 100%;
-            padding: $spacing-4 $spacing-6;
-            color: $color-gray-700;
-            text-decoration: none;
-            font-weight: $font-weight-medium;
-            border-bottom: 1px solid $color-gray-200;
-            transition: all $transition-fast;
+            @include mobile {
+                display: block;
+                width: 100%;
+                padding: $spacing-4 $spacing-6;
+                border-bottom: 1px solid $color-gray-200;
 
-            &:hover {
-                color: $color-accent;
-                background-color: $color-gray-50;
-            }
+                &:hover {
+                    background-color: $color-gray-50;
+                }
 
-            &.active {
-                color: $color-accent;
-                background-color: $color-gray-50;
-                border-bottom-color: $color-accent;
+                &.active {
+                    background-color: $color-gray-50;
+                    border-bottom-color: $color-accent;
+                }
             }
         }
     }

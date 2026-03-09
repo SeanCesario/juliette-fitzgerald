@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, Image } from '../ui'
 import type { Painting } from '../../types/database'
 import './PaintingCard.scss'
 
@@ -14,24 +13,21 @@ const PaintingCard: React.FC<PaintingCardProps> = ({ painting, onClick }) => {
     }
 
     return (
-        <Card onClick={handleClick} hover className="painting-card">
-            <div className="painting-card__image-container">
-                <Image
-                    src={painting.image_url}
-                    alt={painting.title}
-                    aspectRatio="portrait"
-                    lazy
-                    className="painting-card__image"
-                />
+        <div onClick={handleClick} className="painting-card">
+            <img
+                src={painting.image_url}
+                alt={`${painting.title} (${painting.year})`}
+                loading="lazy"
+                className="painting-card__image"
+            />
 
-                <div className="painting-card__overlay">
-                    <div className="painting-card__content">
-                        <h3 className="painting-card__title">{painting.title}</h3>
-                        <p className="painting-card__year">{painting.year}</p>
-                    </div>
+            <div className="painting-card__overlay">
+                <div className="painting-card__content">
+                    <h3 className="painting-card__title">{painting.title}</h3>
+                    <p className="painting-card__year">{painting.year}</p>
                 </div>
             </div>
-        </Card>
+        </div>
     )
 }
 

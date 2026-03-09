@@ -1,35 +1,37 @@
-// Colors - Neutral palette with accent
-$color-white: #ffffff;
-$color-gray-50: #fafafa;
-$color-gray-100: #f5f5f5;
-$color-gray-200: #e5e5e5;
-$color-gray-300: #d4d4d4;
-$color-gray-400: #a3a3a3;
-$color-gray-500: #737373;
-$color-gray-600: #525252;
-$color-gray-700: #404040;
-$color-gray-800: #262626;
-$color-gray-900: #171717;
-$color-black: #000000;
+// Colors - Monochromatic palette
+$color-white: #FAF9F6;
+$color-black: #100F09;
 
-// Accent color for links and buttons
-$color-accent: #2563eb;
-$color-accent-hover: #1d4ed8;
+// Grayscale variations based on the black/white palette
+$color-gray-50: #FAF9F6;
+$color-gray-100: #F5F3EF;
+$color-gray-200: #E8E5DF;
+$color-gray-300: #D4D0C8;
+$color-gray-400: #A8A099;
+$color-gray-500: #7D7468;
+$color-gray-600: #524E44;
+$color-gray-700: #3A362E;
+$color-gray-800: #26231E;
+$color-gray-900: #100F09;
+
+// Accent color (using black with transparency for hover states)
+$color-accent: #100F09;
+$color-accent-hover: rgba(16, 15, 9, 0.8);
 
 // Typography
 $font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 $font-family-serif: 'Crimson Text', Georgia, serif;
 
 // Font sizes - 16px base
-$font-size-xs: 0.75rem;    // 12px
-$font-size-sm: 0.875rem;   // 14px
-$font-size-base: 1rem;     // 16px
-$font-size-lg: 1.125rem;   // 18px
-$font-size-xl: 1.25rem;    // 20px
-$font-size-2xl: 1.5rem;    // 24px
-$font-size-3xl: 1.875rem;  // 30px
-$font-size-4xl: 2.25rem;   // 36px
-$font-size-5xl: 3rem;      // 48px
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-base: 1rem; // 16px
+$font-size-lg: 1.125rem; // 18px
+$font-size-xl: 1.25rem; // 20px
+$font-size-2xl: 1.5rem; // 24px
+$font-size-3xl: 1.875rem; // 30px
+$font-size-4xl: 2.25rem; // 36px
+$font-size-5xl: 3rem; // 48px
 
 // Font weights
 $font-weight-light: 300;
@@ -44,16 +46,16 @@ $line-height-normal: 1.5;
 $line-height-relaxed: 1.75;
 
 // Spacing scale
-$spacing-1: 0.25rem;  // 4px
-$spacing-2: 0.5rem;   // 8px
-$spacing-3: 0.75rem;  // 12px
-$spacing-4: 1rem;     // 16px
-$spacing-5: 1.25rem;  // 20px
-$spacing-6: 1.5rem;   // 24px
-$spacing-8: 2rem;     // 32px
-$spacing-10: 2.5rem;  // 40px
-$spacing-12: 3rem;    // 48px
-$spacing-16: 4rem;    // 64px
+$spacing-1: 0.25rem; // 4px
+$spacing-2: 0.5rem; // 8px
+$spacing-3: 0.75rem; // 12px
+$spacing-4: 1rem; // 16px
+$spacing-5: 1.25rem; // 20px
+$spacing-6: 1.5rem; // 24px
+$spacing-8: 2rem; // 32px
+$spacing-10: 2.5rem; // 40px
+$spacing-12: 3rem; // 48px
+$spacing-16: 4rem; // 64px
 
 // Breakpoints
 $breakpoint-mobile: 767px;

@@ -13,6 +13,23 @@ const Home: React.FC = () => {
     const [selectedPainting, setSelectedPainting] = useState<Painting | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
 
+    // Group paintings by year
+    const paintingsByYear = paintings.reduce((acc, painting) => {
+        const year = painting.year || 'Unknown'
+        if (!acc[year]) {
+            acc[year] = []
+        }
+        acc[year].push(painting)
+        return acc
+    }, {} as Record<string, Painting[]>)
+
+    // Sort years in descending order
+    const sortedYears = Object.keys(paintingsByYear).sort((a, b) => {
+        if (a === 'Unknown') return 1
+        if (b === 'Unknown') return -1
+        return parseInt(b) - parseInt(a)
+    })
+
     useEffect(() => {
         const fetchPaintings = async () => {
             try {
@@ -96,22 +113,24 @@ const Home: React.FC = () => {
     return (
         <>
             <div className="home">
-                <div className="container">
-                    <header className="home__header">
-                        <h1>Gallery</h1>
-                        <p>Explore the collection</p>
-                    </header>
-
-                    <Grid columns={3} gap="md" className="home__gallery">
-                        {paintings.map((painting) => (
-                            <PaintingCard
-                                key={painting.id}
-                                painting={painting}
-                                onClick={handlePaintingClick}
-                            />
-                        ))}
-                    </Grid>
-                </div>
+                {sortedYears.map((year) => (
+                    <section key={year} className="home__year-section">
+                        <div className="home__year-header">
+                            <h2 className="home__year-title">{year}</h2>
+                        </div>
+                        <div className="home__gallery-wrapper">
+                            <Grid columns={3} gap="md" className="home__gallery">
+                                {paintingsByYear[year].map((painting) => (
+                                    <PaintingCard
+                                        key={painting.id}
+                                        painting={painting}
+                                        onClick={handlePaintingClick}
+                                    />
+                                ))}
+                            </Grid>
+                        </div>
+                    </section>
+                ))}
             </div>
 
             <PaintingModal
