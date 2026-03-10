@@ -35,7 +35,7 @@ const Admin: React.FC = () => {
                 <header className="admin__header">
                     <div className="admin__header-left">
                         <h1>Admin Panel</h1>
-                        <p>Welcome back, {user?.email}</p>
+                        <p>{user?.email}</p>
                     </div>
                     <Button variant="secondary" onClick={handleSignOut}>
                         Sign Out

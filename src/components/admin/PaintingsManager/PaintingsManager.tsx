@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getPaintings, deletePainting } from '../../../utils/database'
 import type { Painting } from '../../../types/database'
-import { Button, Grid, Image, Spinner } from '../../ui'
+import { Button, Spinner } from '../../ui'
 import PaintingForm from '../PaintingForm/PaintingForm'
 import './PaintingsManager.scss'
 
@@ -124,43 +124,41 @@ const PaintingsManager: React.FC = () => {
                     </Button>
                 </div>
             ) : (
-                <Grid columns={3} gap="md" className="paintings-manager__grid">
+                <div className="paintings-manager__grid">
                     {paintings.map((painting) => (
-                        <div key={painting.id} className="paintings-manager__card">
-                            <div className="paintings-manager__image">
-                                <Image
-                                    src={painting.image_url}
-                                    alt={painting.title}
-                                    aspectRatio="portrait"
-                                    className="paintings-manager__thumbnail"
-                                />
-                            </div>
-
-                            <div className="paintings-manager__info">
-                                <h3 className="paintings-manager__title">{painting.title}</h3>
-                                <p className="paintings-manager__year">{painting.year}</p>
-                            </div>
-
-                            <div className="paintings-manager__actions">
-                                <Button
-                                    variant="secondary"
-                                    size="sm"
-                                    onClick={() => handleEditPainting(painting)}
-                                >
-                                    Edit
-                                </Button>
-                                <Button
-                                    variant="secondary"
-                                    size="sm"
-                                    onClick={() => handleDeletePainting(painting)}
-                                    className="paintings-manager__delete"
-                                >
-                                    Delete
-                                </Button>
+                        <div key={painting.id} className="paintings-manager__item">
+                            <img
+                                src={painting.image_url}
+                                alt={painting.title}
+                                loading="lazy"
+                                className="paintings-manager__image"
+                            />
+                            <div className="paintings-manager__overlay">
+                                <div className="paintings-manager__content">
+                                    <h3 className="paintings-manager__title">{painting.title}</h3>
+                                    <p className="paintings-manager__year">{painting.year}</p>
+                                </div>
+                                <div className="paintings-manager__actions">
+                                    <Button
+                                        variant="secondary"
+                                        size="sm"
+                                        onClick={() => handleEditPainting(painting)}
+                                    >
+                                        Edit
+                                    </Button>
+                                    <Button
+                                        variant="secondary"
+                                        size="sm"
+                                        onClick={() => handleDeletePainting(painting)}
+                                        className="paintings-manager__delete"
+                                    >
+                                        Delete
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     ))}
-                </Grid>
+                </div>
             )}
 
             {isFormOpen && (

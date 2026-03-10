@@ -91,6 +91,15 @@ export const updateAbout = async (id: string, updates: AboutUpdate) => {
     return { data, error }
 }
 
+export const createAbout = async (about: AboutUpdate) => {
+    const { data, error } = await fromAbout()
+        .insert(about)
+        .select()
+        .single()
+
+    return { data, error }
+}
+
 // Social links operations
 export const getSocialLinks = async () => {
     const { data, error } = await fromSocialLinks()

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getSocialLinks } from '../../utils/database'
 import type { SocialLink } from '../../types/database'
+import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin, FaGlobe, FaEnvelope, FaLink } from 'react-icons/fa'
 import './Footer.scss'
 
 interface FooterProps {
@@ -33,16 +34,16 @@ const Footer: React.FC<FooterProps> = ({ websiteName = 'Juliette Fitzgerald' }) 
     }, [])
 
     const getSocialIcon = (platform: string) => {
-        const iconMap: Record<string, string> = {
-            instagram: '📷',
-            twitter: '🐦',
-            facebook: '📘',
-            linkedin: '💼',
-            website: '🌐',
-            email: '✉️',
-            other: '🔗'
+        const iconMap: Record<string, React.ReactNode> = {
+            instagram: <FaInstagram />,
+            twitter: <FaTwitter />,
+            facebook: <FaFacebook />,
+            linkedin: <FaLinkedin />,
+            website: <FaGlobe />,
+            email: <FaEnvelope />,
+            other: <FaLink />
         }
-        return iconMap[platform] || '🔗'
+        return iconMap[platform] || <FaLink />
     }
 
     const getSocialUrl = (platform: string, url: string) => {
@@ -95,7 +96,7 @@ const Footer: React.FC<FooterProps> = ({ websiteName = 'Juliette Fitzgerald' }) 
                         ))}
                 </div>
                 <div className="copyright">
-                    <p>&copy; 2024 {websiteName}. All rights reserved.</p>
+                    <p>&copy; 2026 {websiteName}. All rights reserved.</p>
                 </div>
             </div>
         </footer>

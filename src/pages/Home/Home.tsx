@@ -103,7 +103,7 @@ const Home: React.FC = () => {
                 <div className="container">
                     <div className="home__empty">
                         <h2>No Paintings Yet</h2>
-                        <p>Check back soon to see the artist's work.</p>
+                        <p>Check back soon to see Juliette Fitzgerald's work.</p>
                     </div>
                 </div>
             </div>

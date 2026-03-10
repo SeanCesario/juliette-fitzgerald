@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react'
-import { useDropzone } from 'react-dropzone'
+import React, { useState } from 'react'
 import { createPainting, updatePainting } from '../../../utils/database'
 import { supabase } from '../../../utils/supabase'
 import type { Painting, PaintingInsert, PaintingUpdate } from '../../../types/database'
-import { Button, Image } from '../../ui'
+import { Button, ImageUploader } from '../../ui'
 import './PaintingForm.scss'
 
 interface PaintingFormProps {
@@ -22,52 +21,30 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
     const [formData, setFormData] = useState({
         title: painting?.title || '',
         description: painting?.description || '',
-        year: painting?.year || new Date().getFullYear(),
+        year: painting?.year || '',
     })
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [previewUrl, setPreviewUrl] = useState<string>(painting?.image_url || '')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        const file = acceptedFiles[0]
-        if (file) {
-            // Validate file type
-            if (!file.type.startsWith('image/')) {
-                setError('Please select an image file')
-                return
-            }
+    const handleImageChange = (file: File | null, url: string) => {
+        setSelectedFile(file)
+        setPreviewUrl(url)
+        setError(null)
+    }
 
-            // Validate file size (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                setError('Image file must be less than 5MB')
-                return
-            }
+    const handleImageRemove = () => {
+        setSelectedFile(null)
+        setPreviewUrl('')
+        setError(null)
+    }
 
-            setSelectedFile(file)
-            setError(null)
-
-            // Create preview
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                setPreviewUrl(e.target?.result as string)
-            }
-            reader.readAsDataURL(file)
-        }
-    }, [])
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop,
-        accept: {
-            'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp']
-        },
-        multiple: false,
-    })
 
     const handleInputChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData(prev => ({
             ...prev,
-            [field]: field === 'year' ? parseInt(e.target.value) || 0 : e.target.value
+            [field]: field === 'year' ? (e.target.value === '' ? '' : parseInt(e.target.value) || 0) : e.target.value
         }))
         setError(null)
     }
@@ -83,7 +60,7 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
             return false
         }
 
-        if (!formData.year || formData.year < 1000 || formData.year > 9999) {
+        if (!formData.year || formData.year === '' || parseInt(formData.year.toString()) < 1000 || parseInt(formData.year.toString()) > 9999) {
             setError('Please enter a valid year (1000-9999)')
             return false
         }
@@ -139,7 +116,7 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
                 const updateData: PaintingUpdate = {
                     title: formData.title.trim(),
                     description: formData.description.trim(),
-                    year: formData.year,
+                    year: parseInt(formData.year.toString()),
                     image_url: imageUrl!,
                 }
                 const { error } = await updatePainting(painting.id, updateData)
@@ -149,7 +126,7 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
                 const createData: PaintingInsert = {
                     title: formData.title.trim(),
                     description: formData.description.trim(),
-                    year: formData.year,
+                    year: parseInt(formData.year.toString()),
                     image_url: imageUrl!,
                 }
                 const { error } = await createPainting(createData)
@@ -224,39 +201,13 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
 
                         <div className="painting-form__field">
                             <label>Image {painting ? '(optional)' : '*'}</label>
-                            <div
-                                {...getRootProps()}
-                                className={`painting-form__dropzone ${isDragActive ? 'painting-form__dropzone--active' : ''}`}
-                            >
-                                <input {...getInputProps()} />
-                                {previewUrl ? (
-                                    <div className="painting-form__preview">
-                                        <Image src={previewUrl} alt="Preview" aspectRatio="portrait" />
-                                        <button
-                                            type="button"
-                                            className="painting-form__remove-image"
-                                            onClick={() => {
-                                                setSelectedFile(null)
-                                                setPreviewUrl(painting?.image_url || '')
-                                            }}
-                                        >
-                                            Remove Image
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div className="painting-form__dropzone-content">
-                                        <div className="painting-form__dropzone-icon">📁</div>
-                                        <p>
-                                            {isDragActive
-                                                ? 'Drop the image here...'
-                                                : 'Drag & drop an image here, or click to select'}
-                                        </p>
-                                        <p className="painting-form__dropzone-hint">
-                                            Supports: JPEG, PNG, GIF, WebP (max 5MB)
-                                        </p>
-                                    </div>
-                                )}
-                            </div>
+                            <ImageUploader
+                                value={previewUrl}
+                                onChange={handleImageChange}
+                                onRemove={handleImageRemove}
+                                disabled={isLoading}
+                                alt="Painting preview"
+                            />
                         </div>
                     </div>
 

@@ -1,6 +1,6 @@
 // Application constants
-export const APP_NAME = 'Juliette Fitzgerald - Artist Portfolio'
-export const APP_DESCRIPTION = 'Artist portfolio featuring paintings and artwork by Juliette Fitzgerald'
+export const APP_NAME = 'Juliette Fitzgerald Portfolio'
+export const APP_DESCRIPTION = 'Portfolio featuring paintings and artwork by Juliette Fitzgerald'
 
 // API endpoints
 export const API_ENDPOINTS = {

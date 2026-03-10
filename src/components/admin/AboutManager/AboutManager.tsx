@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useDropzone } from 'react-dropzone'
-import { getAbout, updateAbout } from '../../../utils/database'
+import { getAbout, updateAbout, createAbout } from '../../../utils/database'
 import { supabase } from '../../../utils/supabase'
 import type { About, AboutUpdate } from '../../../types/database'
 import { useAuth } from '../../../context/AuthContext'
-import { Button, Image } from '../../ui'
+import { Button, ImageUploader } from '../../ui'
 import './AboutManager.scss'
 
 const AboutManager: React.FC = () => {
@@ -19,6 +18,18 @@ const AboutManager: React.FC = () => {
     })
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [previewUrl, setPreviewUrl] = useState<string>('')
+
+    const handleImageChange = (file: File | null, url: string) => {
+        setSelectedFile(file)
+        setPreviewUrl(url)
+        setError(null)
+    }
+
+    const handleImageRemove = () => {
+        setSelectedFile(null)
+        setPreviewUrl('')
+        setError(null)
+    }
 
     useEffect(() => {
         fetchAbout()
@@ -48,40 +59,6 @@ const AboutManager: React.FC = () => {
         }
     }
 
-    const onDrop = (acceptedFiles: File[]) => {
-        const file = acceptedFiles[0]
-        if (file) {
-            // Validate file type
-            if (!file.type.startsWith('image/')) {
-                setError('Please select an image file')
-                return
-            }
-
-            // Validate file size (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                setError('Image file must be less than 5MB')
-                return
-            }
-
-            setSelectedFile(file)
-            setError(null)
-
-            // Create preview
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                setPreviewUrl(e.target?.result as string)
-            }
-            reader.readAsDataURL(file)
-        }
-    }
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop,
-        accept: {
-            'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp']
-        },
-        multiple: false,
-    })
 
     const handleInputChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData(prev => ({
@@ -153,10 +130,19 @@ const AboutManager: React.FC = () => {
                 image_url: imageUrl!,
             }
 
-            const { error } = await updateAbout(about?.id || '', updateData)
+            // Only update if we have an existing about record, otherwise create new one
+            if (about?.id) {
+                const { error } = await updateAbout(about.id, updateData)
 
-            if (error) {
-                throw error
+                if (error) {
+                    throw error
+                }
+            } else {
+                const { error } = await createAbout(updateData)
+
+                if (error) {
+                    throw error
+                }
             }
 
             // Refresh data
@@ -169,11 +155,6 @@ const AboutManager: React.FC = () => {
         }
     }
 
-    const handleRemoveImage = () => {
-        setSelectedFile(null)
-        setPreviewUrl(about?.image_url || '')
-        setError(null)
-    }
 
     if (loading) {
         return (
@@ -202,7 +183,7 @@ const AboutManager: React.FC = () => {
         <div className="about-manager">
             <div className="about-manager__header">
                 <h2>About Page Management</h2>
-                <p>Edit the artist bio and photo that appears on the about page</p>
+                <p>Edit the bio and photo that appears on the about page</p>
             </div>
 
             <form className="about-manager__form" onSubmit={handleSubmit}>
@@ -215,43 +196,20 @@ const AboutManager: React.FC = () => {
                             onChange={handleInputChange('text')}
                             disabled={isSaving}
                             rows={12}
-                            placeholder="Enter the artist bio here..."
+                            placeholder="Enter bio here..."
                             required
                         />
                     </div>
 
                     <div className="about-manager__field">
-                        <label>Artist Photo</label>
-                        <div
-                            {...getRootProps()}
-                            className={`about-manager__dropzone ${isDragActive ? 'about-manager__dropzone--active' : ''}`}
-                        >
-                            <input {...getInputProps()} />
-                            {previewUrl ? (
-                                <div className="about-manager__preview">
-                                    <Image src={previewUrl} alt="Artist photo" aspectRatio="portrait" />
-                                    <button
-                                        type="button"
-                                        className="about-manager__remove-image"
-                                        onClick={handleRemoveImage}
-                                    >
-                                        Remove Image
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="about-manager__dropzone-content">
-                                    <div className="about-manager__dropzone-icon">📷</div>
-                                    <p>
-                                        {isDragActive
-                                            ? 'Drop the image here...'
-                                            : 'Drag & drop an image here, or click to select'}
-                                    </p>
-                                    <p className="about-manager__dropzone-hint">
-                                        Supports: JPEG, PNG, GIF, WebP (max 5MB)
-                                    </p>
-                                </div>
-                            )}
-                        </div>
+                        <label>Photo</label>
+                        <ImageUploader
+                            value={previewUrl}
+                            onChange={handleImageChange}
+                            onRemove={handleImageRemove}
+                            disabled={isSaving}
+                            alt="photo"
+                        />
                     </div>
                 </div>
 

@@ -9,10 +9,6 @@
     transition: box-shadow $transition-normal;
     overflow: visible;
 
-    &:hover {
-        box-shadow: $shadow-md;
-    }
-
     .container {
         width: 100%;
         max-width: none;

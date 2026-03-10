@@ -31,45 +31,6 @@ src/
 └── main.tsx           # App entry point
 ```
 
-## How to Run Locally
-
-### Prerequisites
-
-- Node.js 18+ and npm
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd artist-portfolio
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   Edit `.env` with your Supabase credentials:
-   ```env
-   VITE_SUPABASE_URL=https://your-project-id.supabase.co
-   VITE_SUPABASE_ANON_KEY=your-anon-key-here
-   ```
-
-4. **Run development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-## Continuous Deployment
-
 After initial setup, any push to the `main` branch automatically deploys:
 ```bash
 git add .

@@ -3,6 +3,7 @@ import { getSocialLinks, deleteSocialLink } from '../../../utils/database'
 import type { SocialLink } from '../../../types/database'
 import { useAuth } from '../../../context/AuthContext'
 import { Button } from '../../ui'
+import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin, FaGlobe, FaEnvelope, FaLink } from 'react-icons/fa'
 import SocialLinkForm from '../SocialLinkForm/SocialLinkForm'
 import './SocialLinksManager.scss'
 
@@ -88,16 +89,16 @@ const SocialLinksManager: React.FC = () => {
     }
 
     const getPlatformIcon = (platform: string) => {
-        const iconMap: Record<string, string> = {
-            instagram: '📷',
-            twitter: '🐦',
-            facebook: '📘',
-            linkedin: '💼',
-            website: '🌐',
-            email: '✉️',
-            other: '🔗'
+        const iconMap: Record<string, React.ReactNode> = {
+            instagram: <FaInstagram />,
+            twitter: <FaTwitter />,
+            facebook: <FaFacebook />,
+            linkedin: <FaLinkedin />,
+            website: <FaGlobe />,
+            email: <FaEnvelope />,
+            other: <FaLink />
         }
-        return iconMap[platform] || '🔗'
+        return iconMap[platform] || <FaLink />
     }
 
     const getPlatformDisplay = (platform: string) => {

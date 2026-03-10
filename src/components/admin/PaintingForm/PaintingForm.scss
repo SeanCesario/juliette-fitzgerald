@@ -117,9 +117,13 @@
     }
 
     &__dropzone-content {
+        @include flex-center;
+        @include flex-column;
+
         .painting-form__dropzone-icon {
             font-size: $font-size-3xl;
             margin-bottom: $spacing-2;
+            color: $color-gray-400;
         }
 
         p {

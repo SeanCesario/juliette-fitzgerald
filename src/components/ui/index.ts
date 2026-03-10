@@ -10,6 +10,9 @@ export type { GridProps } from './Grid/Grid'
 export { default as Image } from './Image/Image'
 export type { ImageProps } from './Image/Image'
 
+export { default as ImageUploader } from './ImageUploader/ImageUploader'
+export type { ImageUploaderProps } from './ImageUploader/ImageUploader'
+
 export { default as Modal } from './Modal/Modal'
 export type { ModalProps } from './Modal/Modal'
 

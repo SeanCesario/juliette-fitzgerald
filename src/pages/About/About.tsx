@@ -70,7 +70,7 @@ const AboutPage: React.FC = () => {
                 <div className="container">
                     <div className="about__empty">
                         <h2>About</h2>
-                        <p>No information available yet. Check back soon to learn more about the artist.</p>
+                        <p>No information available yet. Check back soon to learn more about Juliette Fitzgerald.</p>
                     </div>
                 </div>
             </div>
@@ -80,15 +80,12 @@ const AboutPage: React.FC = () => {
     return (
         <div className="about">
             <div className="container">
-                <header className="about__header">
-                    <h1>About</h1>
-                </header>
 
                 <div className="about__content">
                     <div className="about__photo-section">
                         <Image
                             src={about.image_url}
-                            alt="Artist portrait"
+                            alt="Juliette Fitzgerald"
                             aspectRatio="portrait"
                             className="about__photo"
                         />
