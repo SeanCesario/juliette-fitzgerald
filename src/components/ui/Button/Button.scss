@@ -16,6 +16,8 @@
     transition: all $transition-fast;
     padding: $spacing-2 $spacing-4;
     font-size: $font-size-base;
+    white-space: nowrap;
+    flex-wrap: nowrap;
 
     &:focus-visible {
         outline: 2px solid $color-accent;
@@ -31,6 +33,18 @@
         background-color: transparent;
         color: $color-gray-700;
         border: 1px solid $color-gray-300;
+    }
+
+    &--danger {
+        background-color: #dc3545;
+        color: $color-white;
+        border: 1px solid #dc3545;
+
+        &:hover {
+            background-color: #c82333;
+            color: $color-white;
+            border: 1px solid #c82333;
+        }
     }
 
     &--ghost {
@@ -84,5 +98,6 @@
 
     &__text {
         font-weight: $font-weight-medium;
+        white-space: nowrap;
     }
 }

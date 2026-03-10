@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getPaintings, deletePainting } from '../../../utils/database'
 import type { Painting } from '../../../types/database'
 import { Button, Spinner } from '../../ui'
+import { FiEdit } from 'react-icons/fi'
 import PaintingForm from '../PaintingForm/PaintingForm'
 import './PaintingsManager.scss'
 
@@ -143,16 +144,10 @@ const PaintingsManager: React.FC = () => {
                                         variant="secondary"
                                         size="sm"
                                         onClick={() => handleEditPainting(painting)}
+                                        className="paintings-manager__edit"
                                     >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        variant="secondary"
-                                        size="sm"
-                                        onClick={() => handleDeletePainting(painting)}
-                                        className="paintings-manager__delete"
-                                    >
-                                        Delete
+                                        <FiEdit />
+                                        <span className="paintings-manager__edit-text">Edit</span>
                                     </Button>
                                 </div>
                             </div>
@@ -167,6 +162,7 @@ const PaintingsManager: React.FC = () => {
                     isOpen={isFormOpen}
                     onClose={handleFormClose}
                     onSuccess={handleFormSuccess}
+                    onDelete={editingPainting ? () => handleDeletePainting(editingPainting) : undefined}
                 />
             )}
         </div>

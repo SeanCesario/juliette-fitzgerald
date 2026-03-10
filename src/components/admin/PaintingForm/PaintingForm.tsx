@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { createPainting, updatePainting } from '../../../utils/database'
 import { supabase } from '../../../utils/supabase'
 import type { Painting, PaintingInsert, PaintingUpdate } from '../../../types/database'
-import { Button, ImageUploader } from '../../ui'
+import { Button, ImageUploader, ConfirmDialog } from '../../ui'
+import { useBodyScroll } from '../../../hooks/useBodyScroll'
 import './PaintingForm.scss'
 
 interface PaintingFormProps {
@@ -10,14 +11,18 @@ interface PaintingFormProps {
     isOpen: boolean
     onClose: () => void
     onSuccess: () => void
+    onDelete?: () => void
 }
 
 const PaintingForm: React.FC<PaintingFormProps> = ({
     painting,
     isOpen,
     onClose,
-    onSuccess
+    onSuccess,
+    onDelete
 }) => {
+    useBodyScroll(isOpen)
+
     const [formData, setFormData] = useState({
         title: painting?.title || '',
         description: painting?.description || '',
@@ -27,6 +32,7 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
     const [previewUrl, setPreviewUrl] = useState<string>(painting?.image_url || '')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
     const handleImageChange = (file: File | null, url: string) => {
         setSelectedFile(file)
@@ -147,97 +153,136 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
         }
     }
 
+    const handleDeleteClick = () => {
+        setShowDeleteConfirm(true)
+    }
+
+    const handleConfirmDelete = () => {
+        if (onDelete) {
+            onDelete()
+        }
+        setShowDeleteConfirm(false)
+    }
+
+    const handleCancelDelete = () => {
+        setShowDeleteConfirm(false)
+    }
+
     if (!isOpen) return null
 
     return (
-        <div className="painting-form-overlay" onClick={handleClose}>
-            <div className="painting-form" onClick={(e) => e.stopPropagation()}>
-                <div className="painting-form__header">
-                    <h2>{painting ? 'Edit Painting' : 'Add New Painting'}</h2>
-                    <button className="painting-form__close" onClick={handleClose}>
-                        ×
-                    </button>
+        <>
+            <div className="painting-form-overlay" onClick={handleClose}>
+                <div className="painting-form" onClick={(e) => e.stopPropagation()}>
+                    <div className="painting-form__header">
+                        <h2>{painting ? 'Edit Painting' : 'Add New Painting'}</h2>
+                        <button className="painting-form__close" onClick={handleClose}>
+                            ×
+                        </button>
+                    </div>
+
+                    <form className="painting-form__form" onSubmit={handleSubmit}>
+                        <div className="painting-form__fields">
+                            <div className="painting-form__field">
+                                <label htmlFor="title">Title *</label>
+                                <input
+                                    id="title"
+                                    type="text"
+                                    value={formData.title}
+                                    onChange={handleInputChange('title')}
+                                    disabled={isLoading}
+                                    required
+                                />
+                            </div>
+
+                            <div className="painting-form__field">
+                                <label htmlFor="description">Description *</label>
+                                <textarea
+                                    id="description"
+                                    value={formData.description}
+                                    onChange={handleInputChange('description')}
+                                    disabled={isLoading}
+                                    rows={4}
+                                    required
+                                />
+                            </div>
+
+                            <div className="painting-form__field">
+                                <label htmlFor="year">Year *</label>
+                                <input
+                                    id="year"
+                                    type="number"
+                                    value={formData.year}
+                                    onChange={handleInputChange('year')}
+                                    disabled={isLoading}
+                                    min="1000"
+                                    max="9999"
+                                    required
+                                />
+                            </div>
+
+                            <div className="painting-form__field">
+                                <label>Image {painting ? '(optional)' : '*'}</label>
+                                <ImageUploader
+                                    value={previewUrl}
+                                    onChange={handleImageChange}
+                                    onRemove={handleImageRemove}
+                                    disabled={isLoading}
+                                    alt="Painting preview"
+                                />
+                            </div>
+                        </div>
+
+                        {error && (
+                            <div className="painting-form__error">
+                                {error}
+                            </div>
+                        )}
+
+                        <div className="painting-form__actions">
+                            <Button
+                                type="button"
+                                variant="secondary"
+                                onClick={handleClose}
+                                disabled={isLoading}
+                            >
+                                Cancel
+                            </Button>
+                            {painting && onDelete && (
+                                <Button
+                                    type="button"
+                                    variant="danger"
+                                    onClick={handleDeleteClick}
+                                    disabled={isLoading}
+                                    className="painting-form__delete"
+                                >
+                                    Delete
+                                </Button>
+                            )}
+                            <Button
+                                type="submit"
+                                variant="primary"
+                                loading={isLoading}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? 'Saving...' : (painting ? 'Update' : 'Add Painting')}
+                            </Button>
+                        </div>
+                    </form>
                 </div>
-
-                <form className="painting-form__form" onSubmit={handleSubmit}>
-                    <div className="painting-form__fields">
-                        <div className="painting-form__field">
-                            <label htmlFor="title">Title *</label>
-                            <input
-                                id="title"
-                                type="text"
-                                value={formData.title}
-                                onChange={handleInputChange('title')}
-                                disabled={isLoading}
-                                required
-                            />
-                        </div>
-
-                        <div className="painting-form__field">
-                            <label htmlFor="description">Description *</label>
-                            <textarea
-                                id="description"
-                                value={formData.description}
-                                onChange={handleInputChange('description')}
-                                disabled={isLoading}
-                                rows={4}
-                                required
-                            />
-                        </div>
-
-                        <div className="painting-form__field">
-                            <label htmlFor="year">Year *</label>
-                            <input
-                                id="year"
-                                type="number"
-                                value={formData.year}
-                                onChange={handleInputChange('year')}
-                                disabled={isLoading}
-                                min="1000"
-                                max="9999"
-                                required
-                            />
-                        </div>
-
-                        <div className="painting-form__field">
-                            <label>Image {painting ? '(optional)' : '*'}</label>
-                            <ImageUploader
-                                value={previewUrl}
-                                onChange={handleImageChange}
-                                onRemove={handleImageRemove}
-                                disabled={isLoading}
-                                alt="Painting preview"
-                            />
-                        </div>
-                    </div>
-
-                    {error && (
-                        <div className="painting-form__error">
-                            {error}
-                        </div>
-                    )}
-
-                    <div className="painting-form__actions">
-                        <Button
-                            type="button"
-                            variant="secondary"
-                            onClick={handleClose}
-                            disabled={isLoading}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant="primary"
-                            loading={isLoading}
-                            disabled={isLoading}
-                        >
-                            {isLoading ? 'Saving...' : (painting ? 'Update Painting' : 'Add Painting')}
-                        </Button>
-                    </div>
-                </form>
             </div>
-        </div>
+
+            <ConfirmDialog
+                isOpen={showDeleteConfirm}
+                title="Delete Painting?"
+                message={`Are you sure you want to delete "${formData.title}"? This action cannot be undone.`}
+                confirmText="Delete"
+                cancelText="Cancel"
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+                variant="danger"
+            />
+        </>
     )
 }
 

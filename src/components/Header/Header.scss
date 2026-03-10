@@ -101,105 +101,45 @@
         }
     }
 
-    // Mobile Menu Button
-    .mobile-menu-button {
-        display: none;
-        background: none;
-        border: none;
-        padding: $spacing-2;
-        cursor: pointer;
-        border-radius: $border-radius-md;
-        transition: all $transition-fast;
-
-        @include mobile {
-            display: flex;
-        }
-
-        &:hover {
-            background-color: $color-gray-100;
-        }
-
-        &:focus-visible {
-            outline: 2px solid $color-accent;
-            outline-offset: 2px;
-        }
-
-        .hamburger {
-            width: 24px;
-            height: 20px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            span {
-                display: block;
-                width: 100%;
-                height: 2px;
-                background-color: $color-gray-700;
-                border-radius: $border-radius-sm;
-                transition: all $transition-normal;
-                transform-origin: center;
-
-                &:first-child {
-                    transform: translateY(-6px);
-                }
-
-                &:last-child {
-                    transform: translateY(6px);
-                }
-            }
-
-            &.open span:first-child {
-                transform: rotate(45deg) translateY(-6px);
-            }
-
-            &.open span:last-child {
-                transform: rotate(-45deg) translateY(6px);
-            }
-        }
-
-        &.open span:nth-child(2) {
-            opacity: 0;
-        }
-    }
-
     // Mobile Navigation
     .mobile-nav {
         display: none;
 
         @include mobile {
-            display: block;
-            position: fixed;
-            top: 90px;
-            left: 0;
-            right: 0;
-            background-color: $color-white;
-            border-bottom: 1px solid $color-gray-200;
-            box-shadow: $shadow-lg;
-            transform: translateY(-100%);
-            transition: transform $transition-normal;
-            z-index: 99;
+            display: flex;
+            gap: $spacing-4;
+            align-items: center;
 
-            &.open {
-                transform: translateY(0);
-            }
-        }
-
-        .nav-link {
-            @include mobile {
-                display: block;
-                width: 100%;
-                padding: $spacing-4 $spacing-6;
-                border-bottom: 1px solid $color-gray-200;
+            .nav-link {
+                display: inline-block;
+                color: $color-gray-700;
+                text-decoration: none;
+                font-weight: $font-weight-medium;
+                padding: $spacing-2 $spacing-3;
+                border-radius: $border-radius-md;
+                transition: all $transition-fast;
+                position: relative;
 
                 &:hover {
-                    background-color: $color-gray-50;
+                    color: $color-accent;
+                    background-color: $color-gray-100;
                 }
 
                 &.active {
-                    background-color: $color-gray-50;
-                    border-bottom-color: $color-accent;
+                    color: $color-accent;
+                    background-color: $color-gray-100;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -1px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 20px;
+                        height: 2px;
+                        background-color: $color-accent;
+                        border-radius: $border-radius-sm;
+                    }
                 }
             }
         }

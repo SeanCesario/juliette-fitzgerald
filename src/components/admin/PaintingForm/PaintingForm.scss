@@ -178,6 +178,18 @@
         justify-content: flex-end;
         padding-top: $spacing-4;
         border-top: 1px solid $color-gray-200;
+
+        &__delete {
+            background-color: #dc3545 !important;
+            color: $color-white !important;
+            border-color: #dc3545 !important;
+
+            &:hover {
+                background-color: #c82333 !important;
+                color: $color-white !important;
+                border-color: #c82333 !important;
+            }
+        }
     }
 }
 

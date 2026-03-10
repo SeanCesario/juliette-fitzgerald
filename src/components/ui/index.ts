@@ -4,6 +4,9 @@ export type { ButtonProps } from './Button/Button'
 export { default as Card } from './Card/Card'
 export type { CardProps } from './Card/Card'
 
+export { default as ConfirmDialog } from './ConfirmDialog/ConfirmDialog'
+export type { ConfirmDialogProps } from './ConfirmDialog/ConfirmDialog'
+
 export { default as Grid } from './Grid/Grid'
 export type { GridProps } from './Grid/Grid'
 

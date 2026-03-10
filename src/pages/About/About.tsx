@@ -80,7 +80,6 @@ const AboutPage: React.FC = () => {
     return (
         <div className="about">
             <div className="container">
-
                 <div className="about__content">
                     <div className="about__photo-section">
                         <Image

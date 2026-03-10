@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import Image from '../Image/Image'
-import { FaImage } from 'react-icons/fa'
+import ConfirmDialog from '../ConfirmDialog/ConfirmDialog'
+import { FaImage, FaTrash } from 'react-icons/fa'
 import './ImageUploader.scss'
 
 export interface ImageUploaderProps {
@@ -29,6 +30,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     hintText = 'Supports: JPEG, PNG, GIF, WebP (max 5MB)',
     alt = 'Preview'
 }) => {
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false)
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const file = acceptedFiles[0]
         if (file) {
@@ -63,43 +65,68 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
     const handleRemove = (e: React.MouseEvent) => {
         e.stopPropagation()
+        setShowConfirmDialog(true)
+    }
+
+    const handleConfirmRemove = () => {
         onRemove()
+        setShowConfirmDialog(false)
+    }
+
+    const handleCancelRemove = () => {
+        setShowConfirmDialog(false)
     }
 
     return (
-        <div
-            {...getRootProps()}
-            className={`image-uploader ${isDragActive ? 'image-uploader--active' : ''} ${className}`}
-        >
-            <input {...getInputProps()} />
-            {value ? (
-                <div className="image-uploader__preview">
-                    <Image src={value} alt={alt} />
-                    <button
-                        type="button"
-                        className="image-uploader__remove-image"
-                        onClick={handleRemove}
-                        disabled={disabled}
-                    >
-                        Remove Image
-                    </button>
-                </div>
-            ) : (
-                <div className="image-uploader__content">
-                    <div className="image-uploader__icon">
-                        <FaImage />
+        <>
+            <div
+                {...getRootProps()}
+                className={`image-uploader ${isDragActive ? 'image-uploader--active' : ''} ${className}`}
+            >
+                <input {...getInputProps()} />
+                {value ? (
+                    <div className="image-uploader__preview">
+                        <Image src={value} alt={alt} />
+                        <button
+                            type="button"
+                            className="image-uploader__remove-image"
+                            onClick={handleRemove}
+                            disabled={disabled}
+                        >
+                            <FaTrash />
+                            <span>Remove</span>
+                        </button>
                     </div>
-                    <p>
-                        {isDragActive
-                            ? 'Drop the image here...'
-                            : dropzoneText}
-                    </p>
-                    <p className="image-uploader__hint">
-                        {hintText}
-                    </p>
-                </div>
+                ) : (
+                    <div className="image-uploader__content">
+                        <div className="image-uploader__icon">
+                            <FaImage />
+                        </div>
+                        <p>
+                            {isDragActive
+                                ? 'Drop the image here...'
+                                : dropzoneText}
+                        </p>
+                        <p className="image-uploader__hint">
+                            {hintText}
+                        </p>
+                    </div>
+                )}
+            </div>
+
+            {showConfirmDialog && (
+                <ConfirmDialog
+                    isOpen={showConfirmDialog}
+                    title="Remove Image?"
+                    message="Are you sure you want to remove this image? This action cannot be undone."
+                    confirmText="Remove"
+                    cancelText="Cancel"
+                    onConfirm={handleConfirmRemove}
+                    onCancel={handleCancelRemove}
+                    variant="danger"
+                />
             )}
-        </div>
+        </>
     )
 }
 

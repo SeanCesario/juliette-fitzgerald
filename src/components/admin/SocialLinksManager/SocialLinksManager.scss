@@ -88,11 +88,6 @@
         border: 1px solid $color-gray-200;
         border-radius: $border-radius-lg;
         transition: all $transition-normal;
-
-        &:hover {
-            box-shadow: $shadow-md;
-            transform: translateY(-1px);
-        }
     }
 
     &__icon {
@@ -125,6 +120,19 @@
     &__actions {
         display: flex;
         gap: $spacing-2;
+
+        .button__text {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: $spacing-1 !important;
+            white-space: nowrap !important;
+        }
+
+        .social-links-manager__edit-text {
+            @include mobile {
+                display: none;
+            }
+        }
 
         .social-links-manager__delete {
             background-color: $color-gray-100;

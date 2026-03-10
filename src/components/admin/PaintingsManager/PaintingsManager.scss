@@ -93,7 +93,7 @@
         height: 400px;
         width: 100%;
         display: block;
-        object-fit: contain;
+        object-fit: cover;
         transition: all $transition-normal;
 
         &:hover {
@@ -116,7 +116,7 @@
         right: 0;
         bottom: 0;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-        padding: $spacing-4 $spacing-3 $spacing-3;
+        padding: 0;
         opacity: 0;
         transition: opacity $transition-normal;
         display: flex;
@@ -126,10 +126,25 @@
 
         @include mobile {
             opacity: 1;
+            justify-content: flex-end;
+            align-items: flex-start;
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.7) 0%,
+                    rgba(0, 0, 0, 0.4) 30%,
+                    transparent 70%,
+                    transparent 100%);
         }
 
         .paintings-manager__item:hover & {
             opacity: 1;
+
+            @include mobile {
+                background: linear-gradient(to top,
+                        rgba(0, 0, 0, 0.7) 0%,
+                        rgba(0, 0, 0, 0.4) 30%,
+                        transparent 70%,
+                        transparent 100%);
+            }
         }
     }
 
@@ -139,6 +154,13 @@
         flex-direction: column;
         justify-content: flex-end;
         width: 100%;
+        padding: $spacing-4 $spacing-3 $spacing-3;
+
+        @include mobile {
+            justify-content: flex-end;
+            padding-top: $spacing-3;
+            padding-bottom: $spacing-3;
+        }
     }
 
     &__title {
@@ -171,6 +193,19 @@
             &:hover {
                 background-color: $color-white !important;
                 color: $color-black !important;
+            }
+        }
+
+        .button__text {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: $spacing-1 !important;
+            white-space: nowrap !important;
+        }
+
+        .paintings-manager__edit-text {
+            @include mobile {
+                display: none;
             }
         }
     }

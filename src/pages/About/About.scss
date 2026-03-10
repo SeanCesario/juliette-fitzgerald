@@ -28,27 +28,41 @@
     }
 
     &__content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: $spacing-12;
-        align-items: start;
+        position: relative;
 
-        @include tablet {
-            gap: $spacing-8;
+        &::after {
+            content: "";
+            display: table;
+            clear: both;
         }
 
         @include mobile {
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
             gap: $spacing-6;
+
+            &::after {
+                display: none;
+            }
         }
     }
 
     &__photo-section {
-        position: relative;
+        float: left;
+        width: 300px;
+        margin-right: $spacing-8;
+        margin-bottom: $spacing-4;
+
+        @include tablet {
+            width: 250px;
+            margin-right: $spacing-6;
+        }
 
         @include mobile {
+            float: none;
+            width: 100%;
             max-width: 400px;
-            margin: 0 auto;
+            margin: 0 auto $spacing-6 0;
         }
     }
 
@@ -59,8 +73,11 @@
     }
 
     &__bio-section {
-        display: flex;
-        align-items: center;
+        overflow: hidden;
+
+        @include mobile {
+            overflow: visible;
+        }
     }
 
     &__bio {

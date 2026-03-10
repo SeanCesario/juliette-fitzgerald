@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Header.scss'
 
@@ -7,10 +6,19 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ artistName = 'Juliette Fitzgerald' }) => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
     const location = useLocation()
 
     const isActive = (path: string) => location.pathname === path
+
+    const getNonCurrentPageLinks = () => {
+        const links = [
+            { to: '/', label: 'Gallery' },
+            { to: '/about', label: 'About' }
+        ]
+        return links.filter(link => !isActive(link.to))
+    }
+
+    const nonCurrentPageLinks = getNonCurrentPageLinks()
 
     return (
         <header className="header">
@@ -37,38 +45,19 @@ const Header: React.FC<HeaderProps> = ({ artistName = 'Juliette Fitzgerald' }) =
                         </Link>
                     </nav>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        className="mobile-menu-button"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        aria-label="Toggle menu"
-                        aria-expanded={isMenuOpen}
-                    >
-                        <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </button>
+                    {/* Mobile Navigation - Show only non-current page links */}
+                    <nav className="mobile-nav">
+                        {nonCurrentPageLinks.map(link => (
+                            <Link
+                                key={link.to}
+                                to={link.to}
+                                className="nav-link"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                    </nav>
                 </div>
-
-                {/* Mobile Navigation */}
-                <nav className={`mobile-nav ${isMenuOpen ? 'open' : ''}`}>
-                    <Link
-                        to="/"
-                        className={`nav-link ${isActive('/') ? 'active' : ''}`}
-                        onClick={() => setIsMenuOpen(false)}
-                    >
-                        Gallery
-                    </Link>
-                    <Link
-                        to="/about"
-                        className={`nav-link ${isActive('/about') ? 'active' : ''}`}
-                        onClick={() => setIsMenuOpen(false)}
-                    >
-                        About
-                    </Link>
-                </nav>
             </div>
         </header>
     )

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { Painting } from '../../types/database'
+import { useBodyScroll } from '../../hooks/useBodyScroll'
 import './PaintingModal.scss'
 
 interface PaintingModalProps {
@@ -15,6 +16,8 @@ const PaintingModal: React.FC<PaintingModalProps> = ({
     isOpen,
     onClose
 }) => {
+    useBodyScroll(isOpen)
+
     const [currentIndex, setCurrentIndex] = useState(0)
 
     useEffect(() => {
@@ -23,18 +26,6 @@ const PaintingModal: React.FC<PaintingModalProps> = ({
             setCurrentIndex(index >= 0 ? index : 0)
         }
     }, [painting, allPaintings])
-
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = 'unset'
-        }
-
-        return () => {
-            document.body.style.overflow = 'unset'
-        }
-    }, [isOpen])
 
     const handlePrevious = () => {
         if (allPaintings.length === 0) return
@@ -56,22 +47,23 @@ const PaintingModal: React.FC<PaintingModalProps> = ({
 
     return (
         <div className="painting-modal" onClick={onClose}>
-            {/* Name and year in top left */}
-            <div className="painting-modal__info">
-                {currentPainting.title} ({currentPainting.year})
-            </div>
+            {/* Header container with title and close button */}
+            <div className="painting-modal__header">
+                <div className="painting-modal__info">
+                    {currentPainting.title} ({currentPainting.year})
+                </div>
 
-            {/* Close button in top right */}
-            <button
-                className="painting-modal__close"
-                onClick={(e) => {
-                    e.stopPropagation()
-                    onClose()
-                }}
-                aria-label="Close modal"
-            >
-                ×
-            </button>
+                <button
+                    className="painting-modal__close"
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        onClose()
+                    }}
+                    aria-label="Close modal"
+                >
+                    ×
+                </button>
+            </div>
 
             {/* Navigation arrows fixed to sides */}
             {allPaintings.length > 1 && (

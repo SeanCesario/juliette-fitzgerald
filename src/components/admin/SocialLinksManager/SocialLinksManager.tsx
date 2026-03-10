@@ -4,6 +4,7 @@ import type { SocialLink } from '../../../types/database'
 import { useAuth } from '../../../context/AuthContext'
 import { Button } from '../../ui'
 import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin, FaGlobe, FaEnvelope, FaLink } from 'react-icons/fa'
+import { FiEdit } from 'react-icons/fi'
 import SocialLinkForm from '../SocialLinkForm/SocialLinkForm'
 import './SocialLinksManager.scss'
 
@@ -174,16 +175,10 @@ const SocialLinksManager: React.FC = () => {
                                         variant="secondary"
                                         size="sm"
                                         onClick={() => handleEditLink(link)}
+                                        className="social-links-manager__edit"
                                     >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        variant="secondary"
-                                        size="sm"
-                                        onClick={() => handleDeleteLink(link)}
-                                        className="social-links-manager__delete"
-                                    >
-                                        Delete
+                                        <FiEdit />
+                                        <span className="social-links-manager__edit-text">Edit</span>
                                     </Button>
                                 </div>
                             </div>
@@ -197,6 +192,7 @@ const SocialLinksManager: React.FC = () => {
                     isOpen={isFormOpen}
                     onClose={handleFormClose}
                     onSuccess={handleFormSuccess}
+                    onDelete={editingLink ? () => handleDeleteLink(editingLink) : undefined}
                 />
             )}
         </div>

@@ -14,23 +14,44 @@
     z-index: 1000;
     animation: fadeIn $transition-normal;
 
-    &__info {
+    &__header {
         position: fixed;
         top: $spacing-6;
         left: $spacing-6;
+        right: $spacing-6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 10;
+
+        @include mobile {
+            top: $spacing-4;
+            left: $spacing-4;
+            right: $spacing-4;
+        }
+    }
+
+    &__info {
         color: $color-white;
         font-size: $font-size-lg;
         font-weight: $font-weight-bold;
-        z-index: 10;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        margin-right: $spacing-4;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+
+        @include mobile {
+            font-size: $font-size-base;
+        }
     }
 
     &__close {
-        position: fixed;
-        top: $spacing-6;
-        right: $spacing-6;
         background: none;
         border: none;
-        font-size: 2rem;
+        font-size: $font-size-lg;
         color: $color-white;
         cursor: pointer;
         z-index: 10;
@@ -41,6 +62,8 @@
         justify-content: center;
         border-radius: 50%;
         transition: background-color $transition-fast;
+        line-height: 1;
+        flex-shrink: 0;
 
         &:hover {
             background-color: rgba(255, 255, 255, 0.1);
@@ -57,8 +80,7 @@
 
     &__nav {
         position: fixed;
-        top: 50%;
-        transform: translateY(-50%);
+        bottom: $spacing-6;
         background: rgba(255, 255, 255, 0.1);
         border: none;
         font-size: 2rem;
@@ -75,7 +97,7 @@
 
         &:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
         }
 
         &--prev {
@@ -90,6 +112,7 @@
             font-size: 1.5rem;
             width: 40px;
             height: 40px;
+            bottom: $spacing-4;
 
             &--prev {
                 left: $spacing-4;
