@@ -65,9 +65,16 @@ const SocialLinkForm: React.FC<SocialLinkFormProps> = ({
     setError(null)
   }
 
-  const validateUrl = (url: string): boolean => {
-    const urlPattern = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)*$/
-    return urlPattern.test(url)
+  const validateUrl = (url: string, platform: string): boolean => {
+    if (platform === 'email') {
+      // For email platform, accept almost any text (very permissive)
+      const trimmedUrl = url.trim()
+      return trimmedUrl.length > 0 // Just check if there's some text
+    } else {
+      // For other platforms, validate as URL
+      const urlPattern = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)*$/
+      return urlPattern.test(url)
+    }
   }
 
   const validateForm = (): boolean => {
@@ -82,12 +89,12 @@ const SocialLinkForm: React.FC<SocialLinkFormProps> = ({
     }
 
     if (!formData.url.trim()) {
-      setError('URL is required')
+      setError('Email is required')
       return false
     }
 
-    if (!validateUrl(formData.url)) {
-      setError('Please enter a valid URL (must start with http:// or https://)')
+    if (!validateUrl(formData.url, formData.platform)) {
+      setError('Please enter a valid email address or URL')
       return false
     }
 
@@ -200,14 +207,14 @@ const SocialLinkForm: React.FC<SocialLinkFormProps> = ({
               )}
 
               <div className="social-link-form__field">
-                <label htmlFor="url">URL *</label>
+                <label htmlFor="url">Email *</label>
                 <input
                   id="url"
-                  type="url"
+                  type="email"
                   value={formData.url}
                   onChange={handleInputChange('url')}
                   disabled={isLoading}
-                  placeholder="https://example.com"
+                  placeholder="email@example.com"
                   required
                 />
               </div>
