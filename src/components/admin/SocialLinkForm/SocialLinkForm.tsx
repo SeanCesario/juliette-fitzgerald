@@ -89,7 +89,7 @@ const SocialLinkForm: React.FC<SocialLinkFormProps> = ({
     }
 
     if (!formData.url.trim()) {
-      setError('Email is required')
+      setError('URL/Email is required')
       return false
     }
 

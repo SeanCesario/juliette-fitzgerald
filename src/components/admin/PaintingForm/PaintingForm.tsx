@@ -71,7 +71,7 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
             return false
         }
 
-        if (!painting && !selectedFile) {
+        if (!selectedFile && !previewUrl) {
             setError('Please select an image')
             return false
         }
@@ -117,13 +117,18 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
                 imageUrl = await uploadImage(selectedFile)
             }
 
+            // Ensure we always have an image URL
+            if (!imageUrl) {
+                throw new Error('Image is required')
+            }
+
             if (painting) {
                 // Update existing painting
                 const updateData: PaintingUpdate = {
                     title: formData.title.trim(),
                     description: formData.description.trim(),
                     year: parseInt(formData.year.toString()),
-                    image_url: imageUrl!,
+                    image_url: imageUrl,
                 }
                 const { error } = await updatePainting(painting.id, updateData)
                 if (error) throw error
@@ -133,7 +138,7 @@ const PaintingForm: React.FC<PaintingFormProps> = ({
                     title: formData.title.trim(),
                     description: formData.description.trim(),
                     year: parseInt(formData.year.toString()),
-                    image_url: imageUrl!,
+                    image_url: imageUrl,
                 }
                 const { error } = await createPainting(createData)
                 if (error) throw error

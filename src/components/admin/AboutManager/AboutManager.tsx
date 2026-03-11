@@ -79,7 +79,7 @@ const AboutManager: React.FC = () => {
             return false
         }
 
-        if (!about && !selectedFile) {
+        if (!selectedFile && !previewUrl) {
             setError('Please select an image')
             return false
         }
@@ -125,9 +125,14 @@ const AboutManager: React.FC = () => {
                 imageUrl = await uploadImage(selectedFile)
             }
 
+            // Ensure we always have an image URL
+            if (!imageUrl) {
+                throw new Error('Image is required')
+            }
+
             const updateData: AboutUpdate = {
                 text: formData.text.trim(),
-                image_url: imageUrl!,
+                image_url: imageUrl,
             }
 
             // Only update if we have an existing about record, otherwise create new one
