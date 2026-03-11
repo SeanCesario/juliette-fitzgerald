@@ -91,6 +91,8 @@ The admin panel allows you to manage paintings, about page content, and social l
 - **Changes not visible:** Refresh the public website after making changes (may take a few minutes to propagate)
 - **Image upload issues:** Ensure images are in supported formats (JPEG, PNG, GIF, WebP) and under 5MB
 
+## Delpoyment
+
 After initial setup, any push to the `main` branch automatically deploys:
 ```bash
 git add .
