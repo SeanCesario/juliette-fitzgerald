@@ -67,7 +67,6 @@
         white-space: normal;
         text-align: center;
         position: relative;
-        top: 2px;
         min-width: 0;
         flex: 1;
 
@@ -79,6 +78,7 @@
             color: $color-accent;
             border-bottom-color: $color-accent;
             background-color: transparent;
+            font-weight: $font-weight-bold;
         }
     }
 

@@ -80,7 +80,6 @@
 
     &__nav {
         position: fixed;
-        bottom: $spacing-6;
         background: rgba(255, 255, 255, 0.1);
         border: none;
         font-size: 2rem;
@@ -109,17 +108,29 @@
         }
 
         @include mobile {
+            position: fixed;
+            bottom: $spacing-4;
             font-size: 1.5rem;
             width: 40px;
             height: 40px;
-            bottom: $spacing-4;
 
             &--prev {
-                left: $spacing-4;
+                left: 50%;
+                transform: translateX(-60px);
             }
 
             &--next {
-                right: $spacing-4;
+                right: 50%;
+                transform: translateX(60px);
+            }
+
+            &--prev:hover,
+            &--next:hover {
+                transform: translateX(-60px) scale(1.1);
+            }
+
+            &--next:hover {
+                transform: translateX(60px) scale(1.1);
             }
         }
     }

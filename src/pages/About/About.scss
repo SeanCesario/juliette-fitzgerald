@@ -28,55 +28,70 @@
     }
 
     &__content {
-        position: relative;
+        display: flex;
+        min-height: calc(100vh - 300px); // Minimum height to fit content without overlaying footer
+        gap: $spacing-8;
+        align-items: flex-start; // Align both sections to the top
 
-        &::after {
-            content: "";
-            display: table;
-            clear: both;
+        @include tablet {
+            gap: $spacing-6;
+            min-height: calc(100vh - 280px);
         }
 
         @include mobile {
-            display: flex;
             flex-direction: column;
             gap: $spacing-6;
-
-            &::after {
-                display: none;
-            }
+            min-height: auto;
+            align-items: center;
         }
     }
 
     &__photo-section {
-        float: left;
-        width: 300px;
-        margin-right: $spacing-8;
-        margin-bottom: $spacing-4;
-
-        @include tablet {
-            width: 250px;
-            margin-right: $spacing-6;
-        }
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
 
         @include mobile {
-            float: none;
+            flex: none;
             width: 100%;
             max-width: 400px;
-            margin: 0 auto $spacing-6 0;
+            margin: 0 auto;
         }
     }
 
     &__photo {
         width: 100%;
+        max-height: calc(100vh - 350px); // Ensure image fits within page confines
+        object-fit: contain; // Maintain aspect ratio while fitting
         border-radius: $border-radius-lg;
         box-shadow: $shadow-lg;
+
+        @include tablet {
+            max-height: calc(100vh - 330px);
+        }
+
+        @include mobile {
+            max-height: 400px; // Fixed height for mobile
+            object-fit: contain; // Use contain to show full image
+            width: 100%;
+            height: auto; // Allow natural height
+        }
     }
 
     &__bio-section {
-        overflow: hidden;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        text-align: left;
 
         @include mobile {
-            overflow: visible;
+            flex: none;
+            text-align: left;
+            align-items: flex-start;
         }
     }
 
@@ -84,7 +99,8 @@
         font-size: $font-size-lg;
         line-height: 1.7;
         color: $color-gray-700;
-        max-width: 65ch; // Optimal reading width
+        max-width: none;
+        margin: 0;
 
         p {
             margin: 0 0 $spacing-4 0;
@@ -98,6 +114,7 @@
             font-size: $font-size-base;
             line-height: 1.6;
             max-width: none;
+            margin: 0;
         }
     }
 
