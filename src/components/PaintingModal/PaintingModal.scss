@@ -51,12 +51,12 @@
     &__close {
         background: none;
         border: none;
-        font-size: $font-size-lg;
+        font-size: 2.5rem;
         color: $color-white;
         cursor: pointer;
         z-index: 10;
-        width: 44px;
-        height: 44px;
+        width: 60px;
+        height: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -68,6 +68,20 @@
         &:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
+
+        @include mobile {
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+        }
+    }
+
+    &__content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     &__image {
@@ -76,10 +90,14 @@
         object-fit: contain;
         border-radius: $border-radius-lg;
         box-shadow: $shadow-xl;
+
+        @include mobile {
+            max-height: calc(100vh - 300px); // Leave even more space for arrows and padding
+        }
     }
 
     &__nav {
-        position: fixed;
+        position: absolute;
         background: rgba(255, 255, 255, 0.1);
         border: none;
         font-size: 2rem;
@@ -92,7 +110,7 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        transition: all $transition-fast;
+        transition: all 0.3s ease;
 
         &:hover {
             background: rgba(255, 255, 255, 0.2);
@@ -101,36 +119,37 @@
 
         &--prev {
             left: $spacing-6;
+            bottom: -80px;
         }
 
         &--next {
             right: $spacing-6;
+            bottom: -80px;
         }
 
         @include mobile {
             position: fixed;
-            bottom: $spacing-4;
+            bottom: 80px;
             font-size: 1.5rem;
             width: 40px;
             height: 40px;
 
             &--prev {
                 left: 50%;
-                transform: translateX(-60px);
+                transform: translateX(-120px);
             }
 
             &--next {
                 right: 50%;
-                transform: translateX(60px);
+                transform: translateX(120px);
             }
 
-            &--prev:hover,
-            &--next:hover {
-                transform: translateX(-60px) scale(1.1);
+            &--prev:hover {
+                transform: translateX(-120px) scale(1.1);
             }
 
             &--next:hover {
-                transform: translateX(60px) scale(1.1);
+                transform: translateX(120px) scale(1.1);
             }
         }
     }
