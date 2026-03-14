@@ -46,6 +46,8 @@ The admin panel allows you to manage paintings, about page content, and social l
 
 ### Using the Admin Panel
 
+#### [Video Tutorial](https://drive.google.com/file/d/1o_rSRa2L0eJudTdA6EZZGnOVbp7Zo1tI/view?usp=sharing)
+
 #### Navigation
 - **Tabs:** Switch between Paintings, About, and Social Links using the tab navigation
 - **Active tab:** Shows in bold with an underline
